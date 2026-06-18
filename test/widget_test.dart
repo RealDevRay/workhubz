@@ -1,30 +1,30 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:workhubz/main.dart';
+import 'package:workhubz/core/utils/currency_formatter.dart';
+import 'package:workhubz/core/utils/validators.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const WorkHubzApp());
+  group('Validators', () {
+    test('accepts valid Kenyan phone number', () {
+      expect(Validators.validatePhoneNumber('0712345678'), isNull);
+      expect(Validators.validatePhoneNumber('+254712345678'), isNull);
+    });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    test('rejects invalid Kenyan phone number', () {
+      expect(
+        Validators.validatePhoneNumber('12345'),
+        'Invalid Kenyan phone number format',
+      );
+    });
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  group('CurrencyFormatter', () {
+    test('parses KES values', () {
+      expect(CurrencyFormatter.parseKes('KSh 12,500'), 12500);
+    });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    test('formats compact values', () {
+      expect(CurrencyFormatter.formatCompact(1500), 'KSh 1.5K');
+      expect(CurrencyFormatter.formatCompact(2500000), 'KSh 2.5M');
+    });
   });
 }

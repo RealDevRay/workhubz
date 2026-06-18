@@ -47,6 +47,33 @@ flutter run \
   --dart-define=SUPABASE_ANON_KEY=...
 ```
 
+## CI/CD (GitHub Actions)
+
+This repo includes:
+
+- `.github/workflows/ci.yml`
+  - Secret scan (gitleaks)
+  - Format check
+  - Static analysis
+  - Tests
+- `.github/workflows/android-build.yml`
+  - Builds release APK
+  - Uploads APK artifact
+
+### Configure repository secrets
+
+In **GitHub → Settings → Secrets and variables → Actions**, set:
+
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+- `MAPS_API_KEY`
+- `GROQ_API_KEY` (optional)
+- `MPESA_CONSUMER_KEY` (optional)
+- `MPESA_CONSUMER_SECRET` (optional)
+- `MPESA_PASSKEY` (optional)
+
+If optional secrets are not set, CI still runs and Android build uses placeholders.
+
 ## Production deployment checklist
 
 - Do not commit `.env`, `android/local.properties`, or any key files.
