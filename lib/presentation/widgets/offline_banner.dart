@@ -17,7 +17,7 @@ class OfflineBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     if (isOnline) {
       if (onlineMessage == null) return const SizedBox.shrink();
-      
+
       return Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -32,11 +32,7 @@ class OfflineBanner extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const Icon(
-              Icons.cloud_done,
-              color: AppColors.success,
-              size: 18,
-            ),
+            const Icon(Icons.cloud_done, color: AppColors.success, size: 18),
             const SizedBox(width: 12),
             Text(
               onlineMessage ?? 'Back online',
@@ -65,15 +61,12 @@ class OfflineBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.cloud_off,
-            color: AppColors.warning,
-            size: 18,
-          ),
+          const Icon(Icons.cloud_off, color: AppColors.warning, size: 18),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              offlineMessage ?? 'You\'re offline. Some features may be limited.',
+              offlineMessage ??
+                  'You\'re offline. Some features may be limited.',
               style: const TextStyle(
                 color: AppColors.warning,
                 fontSize: 13,
@@ -90,10 +83,7 @@ class OfflineBanner extends StatelessWidget {
 class OfflineOverlay extends StatelessWidget {
   final Widget child;
 
-  const OfflineOverlay({
-    super.key,
-    required this.child,
-  });
+  const OfflineOverlay({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -118,11 +108,7 @@ class OfflineOverlay extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const Icon(
-                  Icons.cloud_off,
-                  color: Colors.white,
-                  size: 18,
-                ),
+                const Icon(Icons.cloud_off, color: Colors.white, size: 18),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
@@ -138,10 +124,7 @@ class OfflineOverlay extends StatelessWidget {
                       ),
                       Text(
                         'Browsing cached data only',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 11,
-                        ),
+                        style: TextStyle(color: Colors.white70, fontSize: 11),
                       ),
                     ],
                   ),

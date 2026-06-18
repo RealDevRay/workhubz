@@ -35,9 +35,8 @@ final appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => SplashScreen(
-        onComplete: () => context.go('/onboarding-location'),
-      ),
+      builder: (context, state) =>
+          SplashScreen(onComplete: () => context.go('/onboarding-location')),
     ),
     GoRoute(
       path: '/onboarding-location',
@@ -63,10 +62,7 @@ final appRouter = GoRouter(
         initialNeighborhood: state.uri.queryParameters['neighborhood'],
       ),
     ),
-    GoRoute(
-      path: '/search',
-      builder: (context, state) => const SearchScreen(),
-    ),
+    GoRoute(path: '/search', builder: (context, state) => const SearchScreen()),
     GoRoute(
       path: '/space/:id',
       builder: (context, state) {
@@ -120,10 +116,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return ConnectivityBanner(
       child: Scaffold(
-        body: IndexedStack(
-          index: currentIndex,
-          children: _screens,
-        ),
+        body: IndexedStack(index: currentIndex, children: _screens),
         bottomNavigationBar: WorkHubzBottomNav(
           currentIndex: currentIndex,
           onIndexChanged: (i) => ref.read(tabIndexProvider.notifier).state = i,

@@ -34,25 +34,16 @@ class SearchResultsList extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.search_off,
-              size: 80,
-              color: Colors.grey[400],
-            ),
+            Icon(Icons.search_off, size: 80, color: Colors.grey[400]),
             const SizedBox(height: 16),
             const Text(
               'No spaces found',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
               'Try adjusting your filters',
-              style: TextStyle(
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(color: Colors.grey[600]),
             ),
           ],
         ),
@@ -116,9 +107,7 @@ class SearchResultsList extends StatelessWidget {
                     fit: BoxFit.cover,
                     placeholder: (context, url) => Container(
                       color: Colors.grey[200],
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                      child: const Center(child: CircularProgressIndicator()),
                     ),
                     errorWidget: (context, url, error) => Container(
                       color: Colors.grey[200],
@@ -145,11 +134,7 @@ class SearchResultsList extends StatelessWidget {
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
-                            Icons.verified,
-                            size: 12,
-                            color: Colors.white,
-                          ),
+                          Icon(Icons.verified, size: 12, color: Colors.white),
                           SizedBox(width: 4),
                           Text(
                             'Verified',
@@ -256,8 +241,9 @@ class SearchResultsList extends StatelessWidget {
                           '${space.amenities.length} Amenities',
                           style: const TextStyle(fontSize: 11),
                         ),
-                        backgroundColor:
-                            AppColors.primary.withValues(alpha: 0.1),
+                        backgroundColor: AppColors.primary.withValues(
+                          alpha: 0.1,
+                        ),
                       ),
                     ],
                   ),

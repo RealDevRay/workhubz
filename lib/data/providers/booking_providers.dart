@@ -6,27 +6,38 @@ final bookingRepositoryProvider = Provider<BookingRepository>((ref) {
   return BookingRepository();
 });
 
-final userBookingsProvider = FutureProvider.family<List<BookingModel>, String>((ref, userId) async {
+final userBookingsProvider = FutureProvider.family<List<BookingModel>, String>((
+  ref,
+  userId,
+) async {
   final repository = ref.watch(bookingRepositoryProvider);
   return repository.getUserBookings(userId);
 });
 
-final upcomingBookingsProvider = FutureProvider.family<List<BookingModel>, String>((ref, userId) async {
-  final repository = ref.watch(bookingRepositoryProvider);
-  return repository.getUpcomingBookings(userId);
-});
+final upcomingBookingsProvider =
+    FutureProvider.family<List<BookingModel>, String>((ref, userId) async {
+      final repository = ref.watch(bookingRepositoryProvider);
+      return repository.getUpcomingBookings(userId);
+    });
 
-final activeBookingsProvider = FutureProvider.family<List<BookingModel>, String>((ref, userId) async {
-  final repository = ref.watch(bookingRepositoryProvider);
-  return repository.getActiveBookings(userId);
-});
+final activeBookingsProvider =
+    FutureProvider.family<List<BookingModel>, String>((ref, userId) async {
+      final repository = ref.watch(bookingRepositoryProvider);
+      return repository.getActiveBookings(userId);
+    });
 
-final pastBookingsProvider = FutureProvider.family<List<BookingModel>, String>((ref, userId) async {
+final pastBookingsProvider = FutureProvider.family<List<BookingModel>, String>((
+  ref,
+  userId,
+) async {
   final repository = ref.watch(bookingRepositoryProvider);
   return repository.getPastBookings(userId);
 });
 
-final bookingByIdProvider = FutureProvider.family<BookingModel?, String>((ref, id) async {
+final bookingByIdProvider = FutureProvider.family<BookingModel?, String>((
+  ref,
+  id,
+) async {
   final repository = ref.watch(bookingRepositoryProvider);
   return repository.getBookingById(id);
 });
@@ -129,12 +140,14 @@ class BookingNotifier extends StateNotifier<BookingState> {
   }
 }
 
-final bookingNotifierProvider = StateNotifierProvider.family<BookingNotifier, BookingState, String>(
-  (ref, userId) {
-    final repository = ref.watch(bookingRepositoryProvider);
-    return BookingNotifier(repository, userId);
-  },
-);
+final bookingNotifierProvider =
+    StateNotifierProvider.family<BookingNotifier, BookingState, String>((
+      ref,
+      userId,
+    ) {
+      final repository = ref.watch(bookingRepositoryProvider);
+      return BookingNotifier(repository, userId);
+    });
 
 class PendingBookingState {
   final String? spaceId;
@@ -176,4 +189,6 @@ class PendingBookingState {
   }
 }
 
-final pendingBookingProvider = StateProvider<PendingBookingState>((ref) => const PendingBookingState());
+final pendingBookingProvider = StateProvider<PendingBookingState>(
+  (ref) => const PendingBookingState(),
+);

@@ -17,7 +17,12 @@ class OperatingHoursModel {
       closeHour: json['closeHour'] as int,
       is24Hours: json['is24Hours'] as bool? ?? false,
       weeklySchedule: (json['weeklySchedule'] as Map<String, dynamic>?)?.map(
-        (key, value) => MapEntry(int.parse(key), value != null ? DayHours.fromJson(value as Map<String, dynamic>) : null),
+        (key, value) => MapEntry(
+          int.parse(key),
+          value != null
+              ? DayHours.fromJson(value as Map<String, dynamic>)
+              : null,
+        ),
       ),
     );
   }
@@ -46,7 +51,8 @@ class OperatingHoursModel {
     if (is24Hours) return true;
 
     if (dayHours != null) {
-      return currentHour >= dayHours.openHour && currentHour < dayHours.closeHour;
+      return currentHour >= dayHours.openHour &&
+          currentHour < dayHours.closeHour;
     }
 
     return currentHour >= openHour && currentHour < closeHour;
@@ -101,10 +107,6 @@ class DayHours {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'openHour': openHour,
-      'closeHour': closeHour,
-      'closed': closed,
-    };
+    return {'openHour': openHour, 'closeHour': closeHour, 'closed': closed};
   }
 }

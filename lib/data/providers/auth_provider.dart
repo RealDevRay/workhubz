@@ -14,7 +14,10 @@ final currentUserProvider = Provider<User?>((ref) {
   return ref.watch(authStateProvider).valueOrNull;
 });
 
-final signInWithGoogleProvider = FutureProvider.family<void, String?>((ref, redirectTo) async {
+final signInWithGoogleProvider = FutureProvider.family<void, String?>((
+  ref,
+  redirectTo,
+) async {
   await Supabase.instance.client.auth.signInWithOAuth(
     OAuthProvider.google,
     redirectTo: redirectTo ?? 'io.supabase.flutter://callback',

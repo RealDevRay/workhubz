@@ -20,7 +20,8 @@ class BookingPaymentScreen extends ConsumerStatefulWidget {
   const BookingPaymentScreen({super.key, required this.spaceId});
 
   @override
-  ConsumerState<BookingPaymentScreen> createState() => _BookingPaymentScreenState();
+  ConsumerState<BookingPaymentScreen> createState() =>
+      _BookingPaymentScreenState();
 }
 
 class _BookingPaymentScreenState extends ConsumerState<BookingPaymentScreen> {
@@ -51,12 +52,18 @@ class _BookingPaymentScreenState extends ConsumerState<BookingPaymentScreen> {
         }
         return _buildScreen(context, space, user, textTheme);
       },
-      loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (e, _) => Scaffold(body: Center(child: Text('Error: $e'))),
     );
   }
 
-  Widget _buildScreen(BuildContext context, SpaceModel space, dynamic user, TextTheme textTheme) {
+  Widget _buildScreen(
+    BuildContext context,
+    SpaceModel space,
+    dynamic user,
+    TextTheme textTheme,
+  ) {
     final totalAmount = space.pricing.calculateTotal(_hours);
 
     return Scaffold(
@@ -76,13 +83,25 @@ class _BookingPaymentScreenState extends ConsumerState<BookingPaymentScreen> {
               children: [
                 Text(space.name, style: textTheme.titleLarge),
                 const SizedBox(height: 4),
-                Text(space.neighborhood, style: textTheme.bodySmall?.copyWith(color: AppColors.onSurfaceVariant)),
+                Text(
+                  space.neighborhood,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: AppColors.onSurfaceVariant,
+                  ),
+                ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    const Icon(Icons.access_time, size: 16, color: AppColors.onSurfaceVariant),
+                    const Icon(
+                      Icons.access_time,
+                      size: 16,
+                      color: AppColors.onSurfaceVariant,
+                    ),
                     const SizedBox(width: 4),
-                    Text('${space.hours.openHour}:00 - ${space.hours.closeHour}:00', style: textTheme.bodySmall),
+                    Text(
+                      '${space.hours.openHour}:00 - ${space.hours.closeHour}:00',
+                      style: textTheme.bodySmall,
+                    ),
                   ],
                 ),
               ],
@@ -120,10 +139,23 @@ class _BookingPaymentScreenState extends ConsumerState<BookingPaymentScreen> {
               children: [
                 Text('Payment Details', style: textTheme.titleMedium),
                 const SizedBox(height: 12),
-                _buildPriceRow(textTheme, 'Rate', '${CurrencyFormatter.formatKes(space.pricing.hourlyRate)}/hr'),
-                _buildPriceRow(textTheme, 'Duration', '$_hours hour${_hours > 1 ? 's' : ''}'),
+                _buildPriceRow(
+                  textTheme,
+                  'Rate',
+                  '${CurrencyFormatter.formatKes(space.pricing.hourlyRate)}/hr',
+                ),
+                _buildPriceRow(
+                  textTheme,
+                  'Duration',
+                  '$_hours hour${_hours > 1 ? 's' : ''}',
+                ),
                 const Divider(),
-                _buildPriceRow(textTheme, 'Total', CurrencyFormatter.formatKes(totalAmount), bold: true),
+                _buildPriceRow(
+                  textTheme,
+                  'Total',
+                  CurrencyFormatter.formatKes(totalAmount),
+                  bold: true,
+                ),
               ],
             ),
           ),
@@ -135,33 +167,52 @@ class _BookingPaymentScreenState extends ConsumerState<BookingPaymentScreen> {
             keyboardType: TextInputType.phone,
             decoration: InputDecoration(
               hintText: '+2547XXXXXXXX',
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
               prefixIcon: const Icon(Icons.phone_android),
             ),
           ),
           if (_errorMessage != null) ...[
             const SizedBox(height: 8),
-            Text(_errorMessage!, style: const TextStyle(color: AppColors.error, fontSize: 13)),
+            Text(
+              _errorMessage!,
+              style: const TextStyle(color: AppColors.error, fontSize: 13),
+            ),
           ],
           const SizedBox(height: 24),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
-              onPressed: _isProcessing ? null : () => _handlePayment(space, totalAmount, user),
+              onPressed: _isProcessing
+                  ? null
+                  : () => _handlePayment(space, totalAmount, user),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0DB42D),
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
               ),
               icon: _isProcessing
                   ? const SizedBox(
-                      width: 20, height: 20,
-                      child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.white,
+                      ),
                     )
                   : const Icon(Icons.payment),
               label: Text(
-                _isProcessing ? 'Processing...' : 'Pay ${CurrencyFormatter.formatKes(totalAmount)}',
-                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                _isProcessing
+                    ? 'Processing...'
+                    : 'Pay ${CurrencyFormatter.formatKes(totalAmount)}',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
@@ -170,20 +221,39 @@ class _BookingPaymentScreenState extends ConsumerState<BookingPaymentScreen> {
     );
   }
 
-  Widget _buildPriceRow(TextTheme textTheme, String label, String value, {bool bold = false}) {
+  Widget _buildPriceRow(
+    TextTheme textTheme,
+    String label,
+    String value, {
+    bool bold = false,
+  }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: textTheme.bodyMedium?.copyWith(color: AppColors.onSurfaceVariant)),
-          Text(value, style: TextStyle(fontWeight: bold ? FontWeight.bold : FontWeight.normal)),
+          Text(
+            label,
+            style: textTheme.bodyMedium?.copyWith(
+              color: AppColors.onSurfaceVariant,
+            ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Future<void> _handlePayment(SpaceModel space, double totalAmount, dynamic user) async {
+  Future<void> _handlePayment(
+    SpaceModel space,
+    double totalAmount,
+    dynamic user,
+  ) async {
     final phone = _phoneController.text.trim();
     if (phone.length < 10) {
       setState(() => _errorMessage = 'Enter a valid M-Pesa phone number');
@@ -194,7 +264,10 @@ class _BookingPaymentScreenState extends ConsumerState<BookingPaymentScreen> {
       return;
     }
 
-    setState(() { _isProcessing = true; _errorMessage = null; });
+    setState(() {
+      _isProcessing = true;
+      _errorMessage = null;
+    });
 
     try {
       final bookingId = const Uuid().v4();
@@ -235,20 +308,27 @@ class _BookingPaymentScreenState extends ConsumerState<BookingPaymentScreen> {
 
       for (var i = 0; i < 10; i++) {
         await Future.delayed(const Duration(seconds: 3));
-        final status = await mpesa.queryPaymentStatus(result.checkoutRequestId!);
+        final status = await mpesa.queryPaymentStatus(
+          result.checkoutRequestId!,
+        );
         if (status.success) {
           final receipt = status.checkoutRequestId ?? result.checkoutRequestId;
-          await ref.read(bookingRepositoryProvider).updatePaymentStatus(
-            bookingId, PaymentStatus.paid,
-            mpesaReceiptNumber: receipt,
-          );
-          await ref.read(bookingRepositoryProvider).updateBookingStatus(
-            bookingId, BookingStatus.upcoming,
-          );
+          await ref
+              .read(bookingRepositoryProvider)
+              .updatePaymentStatus(
+                bookingId,
+                PaymentStatus.paid,
+                mpesaReceiptNumber: receipt,
+              );
+          await ref
+              .read(bookingRepositoryProvider)
+              .updateBookingStatus(bookingId, BookingStatus.upcoming);
           if (mounted) {
             // ignore: use_build_context_synchronously
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Payment successful! Booking confirmed.')),
+              const SnackBar(
+                content: Text('Payment successful! Booking confirmed.'),
+              ),
             );
             // ignore: use_build_context_synchronously
             context.pop();
@@ -259,7 +339,8 @@ class _BookingPaymentScreenState extends ConsumerState<BookingPaymentScreen> {
 
       setState(() {
         _isProcessing = false;
-        _errorMessage = 'Payment timed out. Check M-Pesa messages for confirmation.';
+        _errorMessage =
+            'Payment timed out. Check M-Pesa messages for confirmation.';
       });
     } catch (e) {
       setState(() {

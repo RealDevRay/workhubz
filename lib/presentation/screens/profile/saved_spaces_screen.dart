@@ -16,9 +16,16 @@ class SavedSpacesScreen extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.bookmark_outline, size: 80, color: Colors.grey[400]),
+                  Icon(
+                    Icons.bookmark_outline,
+                    size: 80,
+                    color: Colors.grey[400],
+                  ),
                   const SizedBox(height: 16),
-                  const Text('No Saved Spaces', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const Text(
+                    'No Saved Spaces',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             )
@@ -26,4 +33,3 @@ class SavedSpacesScreen extends ConsumerWidget {
     );
   }
 }
-

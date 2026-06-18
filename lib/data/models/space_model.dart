@@ -62,14 +62,17 @@ class SpaceModel {
             ),
       neighborhood: json['neighborhood'] as String,
       photoUrls: (json['photoUrls'] as List<dynamic>?)?.cast<String>() ?? [],
-      amenities: (json['amenities'] as List<dynamic>?)
+      amenities:
+          (json['amenities'] as List<dynamic>?)
               ?.map((e) => AmenityModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       pricing: PricingTierModel.fromJson(
-          json['pricing'] as Map<String, dynamic>? ?? {}),
+        json['pricing'] as Map<String, dynamic>? ?? {},
+      ),
       hours: OperatingHoursModel.fromJson(
-          json['hours'] as Map<String, dynamic>? ?? {}),
+        json['hours'] as Map<String, dynamic>? ?? {},
+      ),
       rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
       reviewCount: json['reviewCount'] as int? ?? 0,
       isVerified: json['isVerified'] as bool? ?? false,
@@ -157,14 +160,18 @@ class SpaceModel {
   double get latitude => location.latitude;
   double get longitude => location.longitude;
 
-  bool get hasWifi =>
-      amenities.any((a) => a.id == 'wifi' || a.name.toLowerCase().contains('wifi'));
-  bool get hasParking =>
-      amenities.any((a) => a.id == 'parking' || a.name.toLowerCase().contains('parking'));
-  bool get hasQuietZone =>
-      amenities.any((a) => a.id == 'quiet' || a.name.toLowerCase().contains('quiet'));
-  bool get hasFood =>
-      amenities.any((a) => a.id == 'food' || a.name.toLowerCase().contains('food'));
+  bool get hasWifi => amenities.any(
+    (a) => a.id == 'wifi' || a.name.toLowerCase().contains('wifi'),
+  );
+  bool get hasParking => amenities.any(
+    (a) => a.id == 'parking' || a.name.toLowerCase().contains('parking'),
+  );
+  bool get hasQuietZone => amenities.any(
+    (a) => a.id == 'quiet' || a.name.toLowerCase().contains('quiet'),
+  );
+  bool get hasFood => amenities.any(
+    (a) => a.id == 'food' || a.name.toLowerCase().contains('food'),
+  );
 
   String get priceDisplay => 'KSh ${pricing.hourlyRate.toInt()}/hr';
 

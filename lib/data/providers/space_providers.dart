@@ -6,44 +6,52 @@ final spaceRepositoryProvider = Provider<SpaceRepository>((ref) {
   return SpaceRepository();
 });
 
-final spacesProvider = FutureProvider.family<List<SpaceModel>, void>((ref, _) async {
+final spacesProvider = FutureProvider.family<List<SpaceModel>, void>((
+  ref,
+  _,
+) async {
   final repository = ref.watch(spaceRepositoryProvider);
   return repository.getAllSpaces();
 });
 
-final spaceByIdProvider = FutureProvider.family<SpaceModel?, String>((ref, id) async {
+final spaceByIdProvider = FutureProvider.family<SpaceModel?, String>((
+  ref,
+  id,
+) async {
   final repository = ref.watch(spaceRepositoryProvider);
   return repository.getSpaceById(id);
 });
 
 final nearbySpacesProvider =
     FutureProvider.family<List<SpaceModel>, LocationQuery>((ref, query) async {
-  final repository = ref.watch(spaceRepositoryProvider);
-  return repository.getSpacesNearby(
-    latitude: query.latitude,
-    longitude: query.longitude,
-    radiusKm: query.radiusKm,
-  );
-});
+      final repository = ref.watch(spaceRepositoryProvider);
+      return repository.getSpacesNearby(
+        latitude: query.latitude,
+        longitude: query.longitude,
+        radiusKm: query.radiusKm,
+      );
+    });
 
-final searchSpacesProvider =
-    FutureProvider.family<List<SpaceModel>, String>((ref, query) async {
+final searchSpacesProvider = FutureProvider.family<List<SpaceModel>, String>((
+  ref,
+  query,
+) async {
   final repository = ref.watch(spaceRepositoryProvider);
   return repository.searchSpaces(query: query);
 });
 
 final filteredSpacesProvider =
     FutureProvider.family<List<SpaceModel>, FilterQuery>((ref, query) async {
-  final repository = ref.watch(spaceRepositoryProvider);
-  return repository.filterSpaces(
-    maxPrice: query.maxPrice,
-    hasWifi: query.hasWifi,
-    hasParking: query.hasParking,
-    hasQuietZone: query.hasQuietZone,
-    hasPowerBackup: query.hasPowerBackup,
-    neighborhoods: query.neighborhoods,
-  );
-});
+      final repository = ref.watch(spaceRepositoryProvider);
+      return repository.filterSpaces(
+        maxPrice: query.maxPrice,
+        hasWifi: query.hasWifi,
+        hasParking: query.hasParking,
+        hasQuietZone: query.hasQuietZone,
+        hasPowerBackup: query.hasPowerBackup,
+        neighborhoods: query.neighborhoods,
+      );
+    });
 
 class LocationQuery {
   final double latitude;
@@ -95,8 +103,14 @@ class FilterQuery {
       _listEquals(other.neighborhoods, neighborhoods);
 
   @override
-  int get hashCode =>
-      Object.hash(maxPrice, hasWifi, hasParking, hasQuietZone, hasPowerBackup, neighborhoods);
+  int get hashCode => Object.hash(
+    maxPrice,
+    hasWifi,
+    hasParking,
+    hasQuietZone,
+    hasPowerBackup,
+    neighborhoods,
+  );
 
   static bool _listEquals<T>(List<T>? a, List<T>? b) {
     if (a == null && b == null) return true;
@@ -111,9 +125,10 @@ class FilterQuery {
 
 final selectedSpaceProvider = StateProvider<SpaceModel?>((ref) => null);
 
-final spaceFilterProvider = StateNotifierProvider<SpaceFilterNotifier, SpaceFilterState>((ref) {
-  return SpaceFilterNotifier();
-});
+final spaceFilterProvider =
+    StateNotifierProvider<SpaceFilterNotifier, SpaceFilterState>((ref) {
+      return SpaceFilterNotifier();
+    });
 
 class SpaceFilterState {
   final double? maxPrice;
@@ -149,7 +164,8 @@ class SpaceFilterState {
       hasParking: hasParking ?? this.hasParking,
       hasQuietZone: hasQuietZone ?? this.hasQuietZone,
       hasPowerBackup: hasPowerBackup ?? this.hasPowerBackup,
-      selectedNeighborhoods: selectedNeighborhoods ?? this.selectedNeighborhoods,
+      selectedNeighborhoods:
+          selectedNeighborhoods ?? this.selectedNeighborhoods,
       sortBy: sortBy ?? this.sortBy,
     );
   }

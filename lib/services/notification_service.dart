@@ -4,7 +4,9 @@ class NotificationService {
   NotificationService();
 
   Future<void> initialize() async {
-    debugPrint('[Notification] Push notifications not configured (no Firebase)');
+    debugPrint(
+      '[Notification] Push notifications not configured (no Firebase)',
+    );
   }
 
   Future<String?> getToken() async => null;

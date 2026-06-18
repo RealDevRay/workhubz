@@ -104,32 +104,33 @@ class _FilterBottomSheetState extends ConsumerState<FilterBottomSheet> {
               Wrap(
                 spacing: 8,
                 runSpacing: 8,
-                children: [
-                  'Wi-Fi',
-                  'Power Outlets',
-                  'Quiet',
-                  '24-Hour',
-                  'Food Available',
-                  'Parking',
-                  'Power Backup',
-                ].map((amenity) {
-                  final isSelected = selectedAmenities.contains(amenity);
-                  return FilterChip(
-                    label: Text(amenity),
-                    selected: isSelected,
-                    onSelected: (selected) {
-                      setState(() {
-                        if (selected) {
-                          selectedAmenities.add(amenity);
-                        } else {
-                          selectedAmenities.remove(amenity);
-                        }
-                      });
-                    },
-                    backgroundColor: Colors.grey[200],
-                    selectedColor: AppColors.primary.withValues(alpha: 0.3),
-                  );
-                }).toList(),
+                children:
+                    [
+                      'Wi-Fi',
+                      'Power Outlets',
+                      'Quiet',
+                      '24-Hour',
+                      'Food Available',
+                      'Parking',
+                      'Power Backup',
+                    ].map((amenity) {
+                      final isSelected = selectedAmenities.contains(amenity);
+                      return FilterChip(
+                        label: Text(amenity),
+                        selected: isSelected,
+                        onSelected: (selected) {
+                          setState(() {
+                            if (selected) {
+                              selectedAmenities.add(amenity);
+                            } else {
+                              selectedAmenities.remove(amenity);
+                            }
+                          });
+                        },
+                        backgroundColor: Colors.grey[200],
+                        selectedColor: AppColors.primary.withValues(alpha: 0.3),
+                      );
+                    }).toList(),
               ),
               const SizedBox(height: 24),
 
@@ -139,7 +140,10 @@ class _FilterBottomSheetState extends ConsumerState<FilterBottomSheet> {
                 spacing: 8,
                 runSpacing: 8,
                 children: NairobiNeighborhood.values.map((neighborhoodEnum) {
-                  final neighborhood = neighborhoodEnum.displayName; final isSelected = selectedNeighborhoods.contains(neighborhood);
+                  final neighborhood = neighborhoodEnum.displayName;
+                  final isSelected = selectedNeighborhoods.contains(
+                    neighborhood,
+                  );
                   return FilterChip(
                     label: Text(neighborhood),
                     selected: isSelected,
@@ -176,15 +180,11 @@ class _FilterBottomSheetState extends ConsumerState<FilterBottomSheet> {
               DropdownButton<String>(
                 value: selectedSort,
                 isExpanded: true,
-                items: [
-                  'Nearest',
-                  'Cheapest',
-                  'Highest Rated',
-                ]
-                    .map((sort) => DropdownMenuItem(
-                          value: sort,
-                          child: Text(sort),
-                        ))
+                items: ['Nearest', 'Cheapest', 'Highest Rated']
+                    .map(
+                      (sort) =>
+                          DropdownMenuItem(value: sort, child: Text(sort)),
+                    )
                     .toList(),
                 onChanged: (value) {
                   setState(() => selectedSort = value ?? 'Nearest');
@@ -224,10 +224,7 @@ class _FilterBottomSheetState extends ConsumerState<FilterBottomSheet> {
       padding: const EdgeInsets.only(bottom: 12),
       child: Text(
         title,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
     );
   }

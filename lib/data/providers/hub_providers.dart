@@ -8,27 +8,32 @@ final supabaseClientProvider = Provider<SupabaseClient>((ref) {
   return Supabase.instance.client;
 });
 
-final hubsProvider = FutureProvider.family<List<Map<String, dynamic>>, String?>((ref, neighborhood) async {
-  final client = ref.watch(supabaseClientProvider);
+final hubsProvider = FutureProvider.family<List<Map<String, dynamic>>, String?>(
+  (ref, neighborhood) async {
+    final client = ref.watch(supabaseClientProvider);
 
-  var query = client.from('hubs').select('''
+    var query = client.from('hubs').select('''
     *,
     hub_contacts(*),
     hub_amenities(amenity_id)
   ''');
 
-  if (neighborhood != null && neighborhood.isNotEmpty && neighborhood != 'All Nairobi' && neighborhood != 'current') {
-    query = query.eq('neighborhood', neighborhood);
-  }
+    if (neighborhood != null &&
+        neighborhood.isNotEmpty &&
+        neighborhood != 'All Nairobi' &&
+        neighborhood != 'current') {
+      query = query.eq('neighborhood', neighborhood);
+    }
 
-  final response = await query
-      .order('rating', ascending: false)
-      .limit(20);
+    final response = await query.order('rating', ascending: false).limit(20);
 
-  return List<Map<String, dynamic>>.from(response);
-});
+    return List<Map<String, dynamic>>.from(response);
+  },
+);
 
-final featuredHubsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
+final featuredHubsProvider = FutureProvider<List<Map<String, dynamic>>>((
+  ref,
+) async {
   final client = ref.watch(supabaseClientProvider);
   final response = await client
       .from('hubs')

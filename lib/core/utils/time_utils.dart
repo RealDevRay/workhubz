@@ -100,7 +100,8 @@ class TimeUtils {
       final slotEnd = currentSlot.add(Duration(minutes: slotDurationMinutes));
 
       final isAvailable = !existingBookings.any((booking) {
-        return currentSlot.isBefore(booking.end) && slotEnd.isAfter(booking.start);
+        return currentSlot.isBefore(booking.end) &&
+            slotEnd.isAfter(booking.start);
       });
 
       if (isAvailable) {

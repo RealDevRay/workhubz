@@ -25,9 +25,7 @@ class _PhotoGalleryState extends State<PhotoGallery> {
       return Container(
         height: 250,
         color: Colors.grey[200],
-        child: const Center(
-          child: Icon(Icons.image_not_supported, size: 50),
-        ),
+        child: const Center(child: Icon(Icons.image_not_supported, size: 50)),
       );
     }
 
@@ -52,15 +50,11 @@ class _PhotoGalleryState extends State<PhotoGallery> {
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
                   color: Colors.grey[200],
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  child: const Center(child: CircularProgressIndicator()),
                 ),
                 errorWidget: (context, url, error) => Container(
                   color: Colors.grey[200],
-                  child: const Center(
-                    child: Icon(Icons.error, size: 50),
-                  ),
+                  child: const Center(child: Icon(Icons.error, size: 50)),
                 ),
               ),
             );
@@ -94,10 +88,8 @@ class _PhotoGalleryState extends State<PhotoGallery> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => FullscreenImageViewer(
-          imageUrl: url,
-          spaceName: widget.spaceName,
-        ),
+        builder: (context) =>
+            FullscreenImageViewer(imageUrl: url, spaceName: widget.spaceName),
       ),
     );
   }
@@ -123,10 +115,7 @@ class FullscreenImageViewer extends StatelessWidget {
           icon: const Icon(Icons.close, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          spaceName,
-          style: const TextStyle(color: Colors.white),
-        ),
+        title: Text(spaceName, style: const TextStyle(color: Colors.white)),
       ),
       body: Center(
         child: InteractiveViewer(
@@ -136,11 +125,8 @@ class FullscreenImageViewer extends StatelessWidget {
             imageUrl: imageUrl,
             fit: BoxFit.contain,
             placeholder: (context, url) => const CircularProgressIndicator(),
-            errorWidget: (context, url, error) => const Icon(
-              Icons.error,
-              color: Colors.white,
-              size: 50,
-            ),
+            errorWidget: (context, url, error) =>
+                const Icon(Icons.error, color: Colors.white, size: 50),
           ),
         ),
       ),

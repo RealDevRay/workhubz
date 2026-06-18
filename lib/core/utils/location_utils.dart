@@ -11,7 +11,8 @@ class LocationUtils {
     final double dLat = _degreesToRadians(lat2 - lat1);
     final double dLon = _degreesToRadians(lon2 - lon1);
 
-    final double a = math.sin(dLat / 2) * math.sin(dLat / 2) +
+    final double a =
+        math.sin(dLat / 2) * math.sin(dLat / 2) +
         math.cos(_degreesToRadians(lat1)) *
             math.cos(_degreesToRadians(lat2)) *
             math.sin(dLon / 2) *
@@ -43,7 +44,8 @@ class LocationUtils {
     final double lat2Rad = _degreesToRadians(lat2);
 
     final double x = math.sin(dLon) * math.cos(lat2Rad);
-    final double y = math.cos(lat1Rad) * math.sin(lat2Rad) -
+    final double y =
+        math.cos(lat1Rad) * math.sin(lat2Rad) -
         math.sin(lat1Rad) * math.cos(lat2Rad) * math.cos(dLon);
 
     final double bearing = math.atan2(x, y);

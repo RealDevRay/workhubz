@@ -31,7 +31,8 @@ class PricingTierModel {
           : null,
       currency: json['currency'] as String? ?? 'KES',
       notes: json['notes'] as String?,
-      studentDiscountAvailable: json['studentDiscountAvailable'] as bool? ?? false,
+      studentDiscountAvailable:
+          json['studentDiscountAvailable'] as bool? ?? false,
     );
   }
 

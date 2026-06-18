@@ -6,11 +6,7 @@ class AmenityGrid extends StatelessWidget {
   final List<AmenityModel> amenities;
   final Function(AmenityModel)? onAmenityTap;
 
-  const AmenityGrid({
-    super.key,
-    required this.amenities,
-    this.onAmenityTap,
-  });
+  const AmenityGrid({super.key, required this.amenities, this.onAmenityTap});
 
   IconData _getAmenityIcon(String name) {
     final nameLC = name.toLowerCase();
@@ -95,11 +91,7 @@ class AmenityGrid extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              color: color,
-              size: 32,
-            ),
+            Icon(icon, color: color, size: 32),
             const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -118,11 +110,7 @@ class AmenityGrid extends StatelessWidget {
             if (amenity.isVerified)
               Padding(
                 padding: const EdgeInsets.only(top: 4),
-                child: Icon(
-                  Icons.verified,
-                  size: 14,
-                  color: color,
-                ),
+                child: Icon(Icons.verified, size: 14, color: color),
               ),
           ],
         ),
@@ -134,10 +122,7 @@ class AmenityGrid extends StatelessWidget {
 class AmenityDetailSheet extends StatelessWidget {
   final AmenityModel amenity;
 
-  const AmenityDetailSheet({
-    super.key,
-    required this.amenity,
-  });
+  const AmenityDetailSheet({super.key, required this.amenity});
 
   @override
   Widget build(BuildContext context) {
@@ -151,11 +136,7 @@ class AmenityDetailSheet extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.check_circle,
-                  color: AppColors.primary,
-                  size: 28,
-                ),
+                Icon(Icons.check_circle, color: AppColors.primary, size: 28),
                 const SizedBox(width: 12),
                 Text(
                   amenity.name,

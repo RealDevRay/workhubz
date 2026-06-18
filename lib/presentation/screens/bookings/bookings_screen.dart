@@ -47,7 +47,11 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.login, size: 64, color: AppColors.onSurfaceVariant),
+              const Icon(
+                Icons.login,
+                size: 64,
+                color: AppColors.onSurfaceVariant,
+              ),
               const SizedBox(height: 16),
               const Text('Sign in to see your bookings'),
               const SizedBox(height: 16),
@@ -81,7 +85,11 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
             data: (upcoming) => pastAsync.when(
               data: (past) => Padding(
                 padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
-                child: _buildBookingSummary(textTheme, upcoming.length, past.length),
+                child: _buildBookingSummary(
+                  textTheme,
+                  upcoming.length,
+                  past.length,
+                ),
               ),
               loading: () => const SizedBox.shrink(),
               error: (_, _) => const SizedBox.shrink(),
@@ -94,14 +102,17 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
               controller: _tabController,
               children: [
                 upcomingAsync.when(
-                  data: (upcoming) => _buildBookingsList(upcoming, isUpcoming: true),
+                  data: (upcoming) =>
+                      _buildBookingsList(upcoming, isUpcoming: true),
                   loading: () => const ListShimmer(),
-                  error: (e, _) => ErrorStateWidget(title: 'Error', message: e.toString()),
+                  error: (e, _) =>
+                      ErrorStateWidget(title: 'Error', message: e.toString()),
                 ),
                 pastAsync.when(
                   data: (past) => _buildBookingsList(past, isUpcoming: false),
                   loading: () => const ListShimmer(),
-                  error: (e, _) => ErrorStateWidget(title: 'Error', message: e.toString()),
+                  error: (e, _) =>
+                      ErrorStateWidget(title: 'Error', message: e.toString()),
                 ),
               ],
             ),
@@ -111,8 +122,10 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
     );
   }
 
-  Widget _buildBookingsList(List<BookingModel> bookings,
-      {required bool isUpcoming}) {
+  Widget _buildBookingsList(
+    List<BookingModel> bookings, {
+    required bool isUpcoming,
+  }) {
     if (bookings.isEmpty) {
       return Center(
         child: Padding(
@@ -136,8 +149,8 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
                 Text(
                   isUpcoming ? 'No upcoming bookings' : 'No past bookings',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: AppColors.onSurfaceVariant,
-                      ),
+                    color: AppColors.onSurfaceVariant,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -146,8 +159,8 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
                       : 'Your past bookings will show here.',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.onSurfaceVariant,
-                      ),
+                    color: AppColors.onSurfaceVariant,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 OutlinedButton(
@@ -190,9 +203,7 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
                 top: Radius.circular(16),
               ),
             ),
-            child: const Center(
-              child: Icon(Icons.image, size: 40),
-            ),
+            child: const Center(child: Icon(Icons.image, size: 40)),
           ),
           Padding(
             padding: const EdgeInsets.all(16),
@@ -214,8 +225,8 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
                 Text(
                   booking.spaceAddress,
                   style: textTheme.bodySmall?.copyWith(
-                        color: AppColors.onSurfaceVariant,
-                      ),
+                    color: AppColors.onSurfaceVariant,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -306,18 +317,11 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
                   ),
                 ),
                 const SizedBox(height: 6),
-                Text(
-                  '$upcomingCount sessions',
-                  style: textTheme.titleMedium,
-                ),
+                Text('$upcomingCount sessions', style: textTheme.titleMedium),
               ],
             ),
           ),
-          Container(
-            width: 1,
-            height: 36,
-            color: AppColors.surfaceVariant,
-          ),
+          Container(width: 1, height: 36, color: AppColors.surfaceVariant),
           const SizedBox(width: 16),
           Expanded(
             child: Column(
@@ -330,10 +334,7 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
                   ),
                 ),
                 const SizedBox(height: 6),
-                Text(
-                  '$pastCount visits',
-                  style: textTheme.titleMedium,
-                ),
+                Text('$pastCount visits', style: textTheme.titleMedium),
               ],
             ),
           ),
@@ -355,10 +356,7 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
             ),
           ),
           const SizedBox(height: 6),
-          Text(
-            value,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
+          Text(value, style: const TextStyle(fontWeight: FontWeight.w600)),
         ],
       ),
     );
@@ -399,5 +397,4 @@ class _BookingsScreenState extends ConsumerState<BookingsScreen>
       ),
     );
   }
-
 }

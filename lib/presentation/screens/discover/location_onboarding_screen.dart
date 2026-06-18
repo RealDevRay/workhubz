@@ -9,10 +9,12 @@ class LocationOnboardingScreen extends ConsumerStatefulWidget {
   const LocationOnboardingScreen({super.key});
 
   @override
-  ConsumerState<LocationOnboardingScreen> createState() => _LocationOnboardingScreenState();
+  ConsumerState<LocationOnboardingScreen> createState() =>
+      _LocationOnboardingScreenState();
 }
 
-class _LocationOnboardingScreenState extends ConsumerState<LocationOnboardingScreen> {
+class _LocationOnboardingScreenState
+    extends ConsumerState<LocationOnboardingScreen> {
   String? _selectedNeighborhood;
 
   @override
@@ -56,7 +58,8 @@ class _LocationOnboardingScreenState extends ConsumerState<LocationOnboardingScr
                   itemCount: NairobiNeighborhood.values.length,
                   itemBuilder: (context, index) {
                     final neighborhood = NairobiNeighborhood.values[index];
-                    final isSelected = _selectedNeighborhood == neighborhood.name;
+                    final isSelected =
+                        _selectedNeighborhood == neighborhood.name;
 
                     return _NeighborhoodCard(
                       neighborhood: neighborhood,
@@ -80,12 +83,17 @@ class _LocationOnboardingScreenState extends ConsumerState<LocationOnboardingScr
                     child: OutlinedButton(
                       onPressed: () async {
                         // For now just go to discover (current location logic can be added later)
-                        await ref.read(locationPreferenceProvider.notifier).setNeighborhood('current');
+                        await ref
+                            .read(locationPreferenceProvider.notifier)
+                            .setNeighborhood('current');
                         if (!mounted) return;
                         // ignore: use_build_context_synchronously
                         context.push('/home');
                       },
-                      child: const Text('Current location', textAlign: TextAlign.center),
+                      child: const Text(
+                        'Current location',
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -98,7 +106,9 @@ class _LocationOnboardingScreenState extends ConsumerState<LocationOnboardingScr
                                   .setNeighborhood(_selectedNeighborhood!);
                               if (!mounted) return;
                               // ignore: use_build_context_synchronously
-                              context.push('/home?neighborhood=$_selectedNeighborhood');
+                              context.push(
+                                '/home?neighborhood=$_selectedNeighborhood',
+                              );
                             }
                           : null,
                       child: const Text('Continue'),
@@ -164,16 +174,16 @@ class _NeighborhoodCard extends StatelessWidget {
               neighborhood.displayName,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 4),
             Text(
               '${_getHubCountHint(neighborhood.name)} hubs',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.onSurfaceVariant,
-                  ),
+                color: AppColors.onSurfaceVariant,
+              ),
             ),
           ],
         ),
@@ -183,28 +193,51 @@ class _NeighborhoodCard extends StatelessWidget {
 
   Color _getNeighborhoodColor(String name) {
     switch (name) {
-      case 'kilimani': return AppColors.neighborhoodKilimani;
-      case 'westlands': return AppColors.neighborhoodWestlands;
-      case 'cbd': return AppColors.neighborhoodCbd;
-      case 'ngongRoad': return AppColors.neighborhoodNgongRoad;
-      case 'karen': return AppColors.neighborhoodKaren;
-      case 'lavington': return AppColors.primaryLight;
-      case 'ridgeways': return AppColors.secondary;
-      case 'muthaiga': return AppColors.info;
-      case 'hurlingham': return AppColors.error;
-      case 'upperHill': return AppColors.primary;
-      case 'kitengela': return const Color(0xFF8E24AA);
-      case 'mlolongo': return const Color(0xFF00897B);
-      case 'thikaRoad': return const Color(0xFF6D4C41);
-      default: return AppColors.primary;
+      case 'kilimani':
+        return AppColors.neighborhoodKilimani;
+      case 'westlands':
+        return AppColors.neighborhoodWestlands;
+      case 'cbd':
+        return AppColors.neighborhoodCbd;
+      case 'ngongRoad':
+        return AppColors.neighborhoodNgongRoad;
+      case 'karen':
+        return AppColors.neighborhoodKaren;
+      case 'lavington':
+        return AppColors.primaryLight;
+      case 'ridgeways':
+        return AppColors.secondary;
+      case 'muthaiga':
+        return AppColors.info;
+      case 'hurlingham':
+        return AppColors.error;
+      case 'upperHill':
+        return AppColors.primary;
+      case 'kitengela':
+        return const Color(0xFF8E24AA);
+      case 'mlolongo':
+        return const Color(0xFF00897B);
+      case 'thikaRoad':
+        return const Color(0xFF6D4C41);
+      default:
+        return AppColors.primary;
     }
   }
 
   String _getHubCountHint(String name) {
     const counts = {
-      'kilimani': 7, 'westlands': 7, 'cbd': 7, 'ngongRoad': 6,
-      'karen': 8, 'lavington': 5, 'ridgeways': 5, 'muthaiga': 5,
-      'hurlingham': 1, 'upperHill': 8, 'kitengela': 9, 'mlolongo': 6,
+      'kilimani': 7,
+      'westlands': 7,
+      'cbd': 7,
+      'ngongRoad': 6,
+      'karen': 8,
+      'lavington': 5,
+      'ridgeways': 5,
+      'muthaiga': 5,
+      'hurlingham': 1,
+      'upperHill': 8,
+      'kitengela': 9,
+      'mlolongo': 6,
       'thikaRoad': 6,
     };
     return (counts[name] ?? 10).toString();

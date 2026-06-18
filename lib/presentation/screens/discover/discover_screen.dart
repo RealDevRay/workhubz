@@ -17,7 +17,9 @@ class DiscoverScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final persisted = ref.watch(locationPreferenceProvider);
     final neighborhood = initialNeighborhood ?? persisted ?? 'All Nairobi';
-    final hubsAsync = ref.watch(hubsProvider(neighborhood == 'All Nairobi' ? null : neighborhood));
+    final hubsAsync = ref.watch(
+      hubsProvider(neighborhood == 'All Nairobi' ? null : neighborhood),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -53,13 +55,16 @@ class DiscoverScreen extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Good morning!', style: Theme.of(context).textTheme.headlineSmall),
+                    Text(
+                      'Good morning!',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       'Here are the best workspaces in $neighborhood right now.',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: AppColors.onSurfaceVariant,
-                          ),
+                        color: AppColors.onSurfaceVariant,
+                      ),
                     ),
                   ],
                 ),
@@ -77,7 +82,10 @@ class DiscoverScreen extends ConsumerWidget {
               ),
 
               const SizedBox(height: 16),
-              Text('Featured & Highly Rated', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                'Featured & Highly Rated',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               const SizedBox(height: 12),
               ...hubs.take(6).map((hub) => _HubListTile(hub: hub)),
               const SizedBox(height: 40),
@@ -122,14 +130,22 @@ class _HubListTile extends StatelessWidget {
 
     // Extract from joined data (Supabase returns object for to-one like contacts, list for to-many like amenities)
     dynamic contactsRaw = hub['hub_contacts'];
-    final contacts = contactsRaw is List ? contactsRaw : (contactsRaw != null ? [contactsRaw] : []);
-    final firstContact = contacts.isNotEmpty ? (contacts.first as Map<String, dynamic>) : null;
+    final contacts = contactsRaw is List
+        ? contactsRaw
+        : (contactsRaw != null ? [contactsRaw] : []);
+    final firstContact = contacts.isNotEmpty
+        ? (contacts.first as Map<String, dynamic>)
+        : null;
     final website = firstContact?['website'] as String?;
     final phone = firstContact?['phone'] as String?;
 
     final amenitiesList = (hub['hub_amenities'] as List<dynamic>?) ?? [];
-    final amenityIds = amenitiesList.map((a) => (a as Map)['amenity_id'] as String).toList();
-    final amenitiesStr = amenityIds.isNotEmpty ? amenityIds.take(3).join(', ') : 'Various';
+    final amenityIds = amenitiesList
+        .map((a) => (a as Map)['amenity_id'] as String)
+        .toList();
+    final amenitiesStr = amenityIds.isNotEmpty
+        ? amenityIds.take(3).join(', ')
+        : 'Various';
 
     final id = hub['id'] as String?;
 
@@ -142,9 +158,20 @@ class _HubListTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('$neighborhood • $priceStr'),
-            if (amenityIds.isNotEmpty) Text('Amenities: $amenitiesStr', style: Theme.of(context).textTheme.bodySmall),
-            if (website != null) Text(website, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.primary)),
-            if (phone != null) Text(phone, style: Theme.of(context).textTheme.bodySmall),
+            if (amenityIds.isNotEmpty)
+              Text(
+                'Amenities: $amenitiesStr',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            if (website != null)
+              Text(
+                website,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppColors.primary),
+              ),
+            if (phone != null)
+              Text(phone, style: Theme.of(context).textTheme.bodySmall),
           ],
         ),
         trailing: const Icon(Icons.chevron_right),
@@ -157,11 +184,15 @@ class _HubListTile extends StatelessWidget {
               await launchUrl(uri);
             } else {
               if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Could not open $website')));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Could not open $website')),
+                );
               }
             }
           } else if (id != null) {
-            context.push('/space/$id'); // fallback to space detail (may show mock or adapt later)
+            context.push(
+              '/space/$id',
+            ); // fallback to space detail (may show mock or adapt later)
           }
         },
       ),
@@ -181,7 +212,11 @@ class _EmptyState extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.search_off, size: 64, color: AppColors.onSurfaceVariant),
+            const Icon(
+              Icons.search_off,
+              size: 64,
+              color: AppColors.onSurfaceVariant,
+            ),
             const SizedBox(height: 16),
             Text(
               'No hubs found in $neighborhood yet',

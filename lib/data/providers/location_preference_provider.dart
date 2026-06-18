@@ -4,9 +4,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 /// Persists the user's chosen neighborhood for the Discover experience.
 /// Uses Hive (already a project dependency).
 
-final locationPreferenceProvider = StateNotifierProvider<LocationPreferenceNotifier, String?>((ref) {
-  return LocationPreferenceNotifier();
-});
+final locationPreferenceProvider =
+    StateNotifierProvider<LocationPreferenceNotifier, String?>((ref) {
+      return LocationPreferenceNotifier();
+    });
 
 class LocationPreferenceNotifier extends StateNotifier<String?> {
   static const _boxName = 'location_prefs';

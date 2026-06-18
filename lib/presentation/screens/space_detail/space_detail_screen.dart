@@ -12,10 +12,7 @@ import '../../widgets/error_state_widget.dart';
 class SpaceDetailScreen extends ConsumerWidget {
   final String spaceId;
 
-  const SpaceDetailScreen({
-    super.key,
-    required this.spaceId,
-  });
+  const SpaceDetailScreen({super.key, required this.spaceId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +32,8 @@ class SpaceDetailScreen extends ConsumerWidget {
         }
         return _buildDetail(context, ref, space, isAuthenticated, textTheme);
       },
-      loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
       error: (err, _) => Scaffold(
         body: ErrorStateWidget(
           title: 'Failed to load space',
@@ -45,8 +43,13 @@ class SpaceDetailScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildDetail(BuildContext context, WidgetRef ref, SpaceModel space, bool isAuthenticated, TextTheme textTheme) {
-
+  Widget _buildDetail(
+    BuildContext context,
+    WidgetRef ref,
+    SpaceModel space,
+    bool isAuthenticated,
+    TextTheme textTheme,
+  ) {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -157,10 +160,7 @@ class SpaceDetailScreen extends ConsumerWidget {
               ),
             ),
             actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.share),
-              ),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(Icons.favorite_border),
@@ -234,20 +234,11 @@ class SpaceDetailScreen extends ConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 24),
-                  Text(
-                    'About',
-                    style: textTheme.titleLarge,
-                  ),
+                  Text('About', style: textTheme.titleLarge),
                   const SizedBox(height: 8),
-                  Text(
-                    space.description,
-                    style: textTheme.bodyMedium,
-                  ),
+                  Text(space.description, style: textTheme.bodyMedium),
                   const SizedBox(height: 24),
-                  Text(
-                    'Amenities',
-                    style: textTheme.titleLarge,
-                  ),
+                  Text('Amenities', style: textTheme.titleLarge),
                   const SizedBox(height: 12),
                   Wrap(
                     spacing: 12,
@@ -257,10 +248,7 @@ class SpaceDetailScreen extends ConsumerWidget {
                     }).toList(),
                   ),
                   const SizedBox(height: 24),
-                  Text(
-                    'Pricing',
-                    style: textTheme.titleLarge,
-                  ),
+                  Text('Pricing', style: textTheme.titleLarge),
                   const SizedBox(height: 12),
                   Container(
                     padding: const EdgeInsets.all(16),
@@ -309,10 +297,7 @@ class SpaceDetailScreen extends ConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          const Icon(
-                            Icons.security,
-                            color: AppColors.warning,
-                          ),
+                          const Icon(Icons.security, color: AppColors.warning),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
@@ -354,10 +339,12 @@ class SpaceDetailScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      CurrencyFormatter.formatPricePerHour(space.pricing.hourlyRate),
+                      CurrencyFormatter.formatPricePerHour(
+                        space.pricing.hourlyRate,
+                      ),
                       style: textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     if (space.pricing.notes != null)
                       Text(
@@ -376,7 +363,9 @@ class SpaceDetailScreen extends ConsumerWidget {
                     return;
                   }
 
-                  final redirectTo = Uri.encodeComponent('/booking-payment/${space.id}');
+                  final redirectTo = Uri.encodeComponent(
+                    '/booking-payment/${space.id}',
+                  );
                   context.push('/phone-login?redirect=$redirectTo');
                 },
                 style: ElevatedButton.styleFrom(
@@ -414,13 +403,7 @@ class SpaceDetailScreen extends ConsumerWidget {
         children: [
           Icon(icon, size: 14, color: color),
           const SizedBox(width: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-            ),
-          ),
+          Text(label, style: TextStyle(color: color, fontSize: 12)),
         ],
       ),
     );
@@ -457,15 +440,9 @@ class SpaceDetailScreen extends ConsumerWidget {
         const SizedBox(height: 4),
         Text(
           price,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ],
     );
   }
-
 }
-
-

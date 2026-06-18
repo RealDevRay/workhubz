@@ -25,11 +25,7 @@ class ErrorStateWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 80,
-              color: AppColors.error.withValues(alpha: 0.6),
-            ),
+            Icon(icon, size: 80, color: AppColors.error.withValues(alpha: 0.6)),
             const SizedBox(height: 24),
             Text(
               title,
@@ -96,11 +92,7 @@ class NoDataStateWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 80,
-              color: Colors.grey[400],
-            ),
+            Icon(icon, size: 80, color: Colors.grey[400]),
             const SizedBox(height: 24),
             Text(
               title,
@@ -146,11 +138,7 @@ class LoadingErrorWidget extends StatelessWidget {
   final String? message;
   final bool isLoading;
 
-  const LoadingErrorWidget({
-    super.key,
-    this.message,
-    this.isLoading = false,
-  });
+  const LoadingErrorWidget({super.key, this.message, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -162,18 +150,11 @@ class LoadingErrorWidget extends StatelessWidget {
             valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
           )
         else
-          Icon(
-            Icons.cloud_off,
-            size: 64,
-            color: Colors.grey[400],
-          ),
+          Icon(Icons.cloud_off, size: 64, color: Colors.grey[400]),
         const SizedBox(height: 16),
         Text(
           message ?? 'Something went wrong',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[600],
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.grey[600]),
           textAlign: TextAlign.center,
         ),
       ],
@@ -200,9 +181,7 @@ class ErrorSnackBar {
         duration: duration,
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }
@@ -225,9 +204,7 @@ class ErrorSnackBar {
         duration: duration,
         behavior: SnackBarBehavior.floating,
         margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
     );
   }

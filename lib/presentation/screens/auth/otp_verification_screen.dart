@@ -16,7 +16,8 @@ class OtpVerificationScreen extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
+  ConsumerState<OtpVerificationScreen> createState() =>
+      _OtpVerificationScreenState();
 }
 
 class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
@@ -54,9 +55,9 @@ class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
       );
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Verification failed: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Verification failed: $e')));
         setState(() => _isLoading = false);
       }
       return;
@@ -88,9 +89,7 @@ class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Verify Phone'),
-      ),
+      appBar: AppBar(title: const Text('Verify Phone')),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -100,11 +99,7 @@ class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Spacer(),
-                Icon(
-                  Icons.sms_outlined,
-                  size: 64,
-                  color: AppColors.primary,
-                ),
+                Icon(Icons.sms_outlined, size: 64, color: AppColors.primary),
                 const SizedBox(height: 24),
                 Text(
                   'Enter verification code',
@@ -115,8 +110,8 @@ class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
                 Text(
                   'We sent a 6-digit code to ${widget.phoneNumber}',
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: AppColors.onSurfaceVariant,
-                      ),
+                    color: AppColors.onSurfaceVariant,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
@@ -125,14 +120,9 @@ class _OtpVerificationScreenState extends ConsumerState<OtpVerificationScreen> {
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   maxLength: 6,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   validator: _validateOtp,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    letterSpacing: 8,
-                  ),
+                  style: const TextStyle(fontSize: 24, letterSpacing: 8),
                   decoration: const InputDecoration(
                     hintText: '------',
                     counterText: '',

@@ -49,7 +49,8 @@ class WorkHubzAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
-class WorkHubzSimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
+class WorkHubzSimpleAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final bool showBackButton;
   final List<Widget>? actions;

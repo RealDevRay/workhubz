@@ -42,29 +42,17 @@ class CardShimmer extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-            const LoadingShimmer(
-              width: 80,
-              height: 80,
-            ),
+            const LoadingShimmer(width: 80, height: 80),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  LoadingShimmer(
-                    height: 16,
-                    width: 150,
-                  ),
+                  LoadingShimmer(height: 16, width: 150),
                   SizedBox(height: 8),
-                  LoadingShimmer(
-                    height: 12,
-                    width: 100,
-                  ),
+                  LoadingShimmer(height: 12, width: 100),
                   SizedBox(height: 8),
-                  LoadingShimmer(
-                    height: 12,
-                    width: 80,
-                  ),
+                  LoadingShimmer(height: 12, width: 80),
                 ],
               ),
             ),
@@ -78,10 +66,7 @@ class CardShimmer extends StatelessWidget {
 class ListShimmer extends StatelessWidget {
   final int itemCount;
 
-  const ListShimmer({
-    super.key,
-    this.itemCount = 5,
-  });
+  const ListShimmer({super.key, this.itemCount = 5});
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ class ConnectivityService {
   StreamSubscription<ConnectivityResult>? _subscription;
 
   ConnectivityService({Connectivity? connectivity})
-      : _connectivity = connectivity ?? Connectivity();
+    : _connectivity = connectivity ?? Connectivity();
 
   Future<bool> isConnected() async {
     final result = await _connectivity.checkConnectivity();
@@ -52,7 +52,7 @@ class ConnectivityNotifier {
   StreamSubscription<ConnectivityResult>? _subscription;
 
   ConnectivityNotifier({this.onConnectivityChanged, Connectivity? connectivity})
-      : _connectivity = connectivity ?? Connectivity() {
+    : _connectivity = connectivity ?? Connectivity() {
     _subscription = _connectivity.onConnectivityChanged.listen((results) {
       final connected = results != ConnectivityResult.none;
       onConnectivityChanged?.call(connected);
