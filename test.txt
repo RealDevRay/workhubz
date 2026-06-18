@@ -1,0 +1,268 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/utils/currency_formatter.dart';
+import '../../../data/models/space_model.dart';
+import '../../../data/models/pricing_tier_model.dart';
+import '../../../data/models/operating_hours_model.dart';
+
+class SearchScreen extends ConsumerStatefulWidget {
+  const SearchScreen({super.key});
+
+  @override
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends ConsumerState<SearchScreen> {
+  final _searchController = TextEditingController();
+  String _searchQuery = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: TextField(
+          controller: _searchController,
+          autofocus: true,
+          decoration: const InputDecoration(
+            hintText: 'Search workspaces...',
+            border: InputBorder.none,
+          ),
+          onChanged: (value) {
+            setState(() => _searchQuery = value);
+          },
+        ),
+      ),
+      body: _searchQuery.isEmpty ? _buildSuggestions() : _buildResults(),
+    );
+  }
+
+  Widget _buildSuggestions() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Popular Searches',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              'Wi-Fi',
+              'Quiet',
+              'Parking',
+              'Power backup',
+              '24 hours',
+              'Food allowed',
+            ].map((tag) {
+              return ActionChip(
+                label: Text(tag),
+                onPressed: () {
+                  _searchController.text = tag;
+                  setState(() => _searchQuery = tag);
+                },
+              );
+            }).toList(),
+          ),
+          const SizedBox(height: 24),
+          const Text(
+            'Browse by Neighborhood',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 12),
+          ...['Kilimani', 'Westlands', 'CBD', 'Ngong Road', 'Karen'].map((area) {
+            return ListTile(
+              leading: const Icon(Icons.location_on),
+              title: Text(area),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                _searchController.text = area;
+                setState(() => _searchQuery = area);
+              },
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildResults() {
+    final results = _searchSpaces(_searchQuery);
+
+    if (results.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.search_off,
+              size: 64,
+              color: AppColors.onSurfaceVariant,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'No results for \',
+              style: const TextStyle(
+                fontSize: 18,
+                color: AppColors.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        final space = results[index];
+        return _buildSpaceCard(space);
+      },
+    );
+  }
+
+  Widget _buildSpaceCard(SpaceModel space) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: InkWell(
+        onTap: () => context.push('/space/\'),
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  color: AppColors.surfaceVariant,
+                  child: space.photoUrls.isNotEmpty
+                      ? Image.network(space.photoUrls.first, fit: BoxFit.cover)
+                      : const Icon(Icons.image),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      space.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      space.neighborhood,
+                      style: const TextStyle(
+                        color: AppColors.onSurfaceVariant,
+                        fontSize: 12,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text(
+                          CurrencyFormatter.formatKes(space.pricing.hourlyRate),
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text(' /hr'),
+                        const SizedBox(width: 8),
+                        const Icon(Icons.star, size: 14, color: Colors.amber),
+                        Text(' \'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<SpaceModel> _searchSpaces(String query) {
+    final allSpaces = _getAllSpaces();
+    final queryLower = query.toLowerCase();
+    return allSpaces.where((space) {
+      return space.name.toLowerCase().contains(queryLower) ||
+          space.neighborhood.toLowerCase().contains(queryLower) ||
+          space.address.toLowerCase().contains(queryLower);
+    }).toList();
+  }
+
+  List<SpaceModel> _getAllSpaces() {
+    return [
+      SpaceModel(
+        id: '1',
+        name: 'Tech Hub Kilimani',
+        description: 'Modern coworking space',
+        address: 'Ring Road, Kilimani',
+        location: GeoPoint(-1.3000, 36.7800),
+        neighborhood: 'kilimani',
+        photoUrls: [],
+        amenities: [],
+        pricing: const PricingTierModel(hourlyRate: 150),
+        hours: const OperatingHoursModel(openHour: 8, closeHour: 20),
+        rating: 4.5,
+        reviewCount: 32,
+        isVerified: true,
+      ),
+      SpaceModel(
+        id: '2',
+        name: 'WorkBay Westlands',
+        description: 'Premium workspace',
+        address: 'Chiromo Lane, Westlands',
+        location: GeoPoint(-1.2800, 36.8100),
+        neighborhood: 'westlands',
+        photoUrls: [],
+        amenities: [],
+        pricing: const PricingTierModel(hourlyRate: 300),
+        hours: const OperatingHoursModel(openHour: 7, closeHour: 22),
+        rating: 4.8,
+        reviewCount: 56,
+        isVerified: true,
+      ),
+      SpaceModel(
+        id: '3',
+        name: 'Study Cafe CBD',
+        description: 'Affordable study spot',
+        address: 'Kenyatta Avenue, CBD',
+        location: GeoPoint(-1.2830, 36.8250),
+        neighborhood: 'cbd',
+        photoUrls: [],
+        amenities: [],
+        pricing: const PricingTierModel(hourlyRate: 80),
+        hours: const OperatingHoursModel(openHour: 7, closeHour: 21),
+        rating: 4.2,
+        reviewCount: 18,
+        isVerified: false,
+      ),
+    ];
+  }
+}
