@@ -59,6 +59,9 @@ This repo includes:
 - `.github/workflows/android-build.yml`
   - Builds release APK
   - Uploads APK artifact
+- `.github/workflows/release.yml`
+  - Builds signed release APK + AAB
+  - Publishes GitHub Release on version tags (`v*`) or manual run
 
 ### Configure repository secrets
 
@@ -72,7 +75,26 @@ In **GitHub → Settings → Secrets and variables → Actions**, set:
 - `MPESA_CONSUMER_SECRET` (optional)
 - `MPESA_PASSKEY` (optional)
 
-If optional secrets are not set, CI still runs and Android build uses placeholders.
+For signed release workflow, also set:
+
+- `ANDROID_KEYSTORE_BASE64` (base64-encoded JKS/keystore)
+- `ANDROID_KEYSTORE_PASSWORD`
+- `ANDROID_KEY_ALIAS`
+- `ANDROID_KEY_PASSWORD`
+
+If optional app secrets are not set, CI still runs and Android build uses placeholders.
+
+### Branch protection recommendation
+
+Use `docs/branch-protection.md` and require these checks on `main`:
+
+- `Secret Scan`
+- `Flutter Quality`
+
+## Creating a signed release
+
+- Push a tag like `v1.0.1` to trigger release workflow, or run `Release` manually from Actions.
+- Workflow builds signed `.apk` and `.aab` and attaches both to a GitHub Release.
 
 ## Production deployment checklist
 
