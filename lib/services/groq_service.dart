@@ -8,16 +8,19 @@ class GroqResult {
 }
 
 class GroqService {
-  static const String _baseUrl = 'https://api.groq.com/openai/v1/chat/completions';
+  static const String _baseUrl =
+      'https://api.groq.com/openai/v1/chat/completions';
   final String _apiKey;
   final Dio _dio;
 
   GroqService()
-      : _apiKey = const String.fromEnvironment('GROQ_API_KEY'),
-        _dio = Dio(BaseOptions(
+    : _apiKey = const String.fromEnvironment('GROQ_API_KEY'),
+      _dio = Dio(
+        BaseOptions(
           connectTimeout: const Duration(seconds: 15),
           receiveTimeout: const Duration(seconds: 30),
-        ));
+        ),
+      );
 
   Future<GroqResult> parseSearchQuery(String query) async {
     if (_apiKey.isEmpty) {
@@ -27,17 +30,20 @@ class GroqService {
     try {
       final response = await _dio.post(
         _baseUrl,
-        options: Options(headers: {
-          'Authorization': 'Bearer $_apiKey',
-          'Content-Type': 'application/json',
-          'User-Agent': 'WorkHubz/1.0',
-        }),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $_apiKey',
+            'Content-Type': 'application/json',
+            'User-Agent': 'WorkHubz/1.0',
+          },
+        ),
         data: {
           'model': 'llama-3.1-8b-instant',
           'messages': [
             {
               'role': 'system',
-              'content': 'You extract workspace search filters from user queries for Nairobi. '
+              'content':
+                  'You extract workspace search filters from user queries for Nairobi. '
                   'Valid neighborhoods: kilimani, westlands, cbd, ngongRoad, karen, lavington, '
                   'ridgeways, muthaiga, hurlingham, upperHill, kitengela, mlolongo, thikaRoad. '
                   'Valid amenities: wifi, parking, quiet, power_backup. '
@@ -80,13 +86,34 @@ class GroqService {
 
   Map<String, dynamic> _localFallback(String query) {
     final lower = query.toLowerCase();
-    final neighborhoods = ['kilimani', 'westlands', 'cbd', 'ngongRoad', 'karen', 'lavington',
-        'ridgeways', 'muthaiga', 'hurlingham', 'upperHill', 'kitengela', 'mlolongo', 'thikaRoad'];
-    final a = {'wifi': false, 'parking': false, 'quiet': false, 'power_backup': false};
+    final neighborhoods = [
+      'kilimani',
+      'westlands',
+      'cbd',
+      'ngongRoad',
+      'karen',
+      'lavington',
+      'ridgeways',
+      'muthaiga',
+      'hurlingham',
+      'upperHill',
+      'kitengela',
+      'mlolongo',
+      'thikaRoad',
+    ];
+    final a = {
+      'wifi': false,
+      'parking': false,
+      'quiet': false,
+      'power_backup': false,
+    };
 
     String? foundN;
     for (final n in neighborhoods) {
-      final display = n.replaceAllMapped(RegExp(r'[A-Z]'), (m) => ' ${m.group(0)!.toLowerCase()}');
+      final display = n.replaceAllMapped(
+        RegExp(r'[A-Z]'),
+        (m) => ' ${m.group(0)!.toLowerCase()}',
+      );
       if (lower.contains(n) || lower.contains(display.trim())) {
         foundN = n;
         break;
@@ -96,17 +123,22 @@ class GroqService {
     double? maxP;
     for (final m in RegExp(r'(\d{3,})').allMatches(lower)) {
       final num = int.tryParse(m.group(1) ?? '');
-      if (num != null && num > 0 && num < 100000) { maxP = num.toDouble(); break; }
+      if (num != null && num > 0 && num < 100000) {
+        maxP = num.toDouble();
+        break;
+      }
     }
 
     if (lower.contains('wifi')) a['wifi'] = true;
     if (lower.contains('parking')) a['parking'] = true;
     if (lower.contains('quiet') || lower.contains('silent')) a['quiet'] = true;
-    if (lower.contains('power') || lower.contains('backup')) a['power_backup'] = true;
+    if (lower.contains('power') || lower.contains('backup')) {
+      a['power_backup'] = true;
+    }
 
     return {
-      'neighborhood': ?foundN,
-      'maxPrice': ?maxP,
+      'neighborhood': foundN,
+      'maxPrice': maxP,
       'amenities': a.entries.where((e) => e.value).map((e) => e.key).toList(),
     };
   }
