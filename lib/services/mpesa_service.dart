@@ -32,10 +32,11 @@ class MpesaService {
       'MPESA_CONSUMER_SECRET',
     );
     if (consumerKey.isEmpty || consumerSecret.isEmpty) {
-      if (kDebugMode)
+      if (kDebugMode) {
         debugPrint(
           'MPESA: Consumer key or secret not set. Use --dart-define=MPESA_CONSUMER_KEY=... --dart-define=MPESA_CONSUMER_SECRET=... or the build script.',
         );
+      }
       return null;
     }
 
@@ -178,9 +179,12 @@ class MpesaService {
 
   String _normalizePhone(String phone) {
     String normalized = phone.replaceAll(RegExp(r'[\s\-\(\)]'), '');
-    if (normalized.startsWith('+')) normalized = normalized.substring(1);
-    if (normalized.startsWith('0'))
+    if (normalized.startsWith('+')) {
+      normalized = normalized.substring(1);
+    }
+    if (normalized.startsWith('0')) {
       normalized = '254${normalized.substring(1)}';
+    }
     return normalized;
   }
 

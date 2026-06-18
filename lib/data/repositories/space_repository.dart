@@ -158,12 +158,18 @@ class SpaceRepository {
         .map((json) => _hubJsonToSpaceModel(json))
         .toList();
 
-    if (hasWifi == true) spaces = spaces.where((s) => s.hasWifi).toList();
-    if (hasParking == true) spaces = spaces.where((s) => s.hasParking).toList();
-    if (hasQuietZone == true)
+    if (hasWifi == true) {
+      spaces = spaces.where((s) => s.hasWifi).toList();
+    }
+    if (hasParking == true) {
+      spaces = spaces.where((s) => s.hasParking).toList();
+    }
+    if (hasQuietZone == true) {
       spaces = spaces.where((s) => s.hasQuietZone).toList();
-    if (hasPowerBackup == true)
+    }
+    if (hasPowerBackup == true) {
       spaces = spaces.where((s) => s.hasPowerBackup).toList();
+    }
 
     return spaces.take(limit).toList();
   }
