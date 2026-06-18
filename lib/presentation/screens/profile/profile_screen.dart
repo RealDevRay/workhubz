@@ -22,7 +22,11 @@ class ProfileScreen extends ConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.login, size: 64, color: AppColors.onSurfaceVariant),
+              const Icon(
+                Icons.login,
+                size: 64,
+                color: AppColors.onSurfaceVariant,
+              ),
               const SizedBox(height: 16),
               Text(
                 'Sign in to manage your profile',
@@ -47,9 +51,7 @@ class ProfileScreen extends ConsumerWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
+      appBar: AppBar(title: const Text('Profile')),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
         children: [
@@ -101,7 +103,9 @@ class ProfileScreen extends ConsumerWidget {
                 title: 'Help & Support',
                 subtitle: 'Chat with the WorkHubz team',
                 onTap: () async {
-                  final url = Uri.parse('https://wa.me/254700000000'); // Replace with actual number
+                  final url = Uri.parse(
+                    'https://wa.me/254700000000',
+                  ); // Replace with actual number
                   if (await canLaunchUrl(url)) {
                     await launchUrl(url);
                   }
@@ -117,9 +121,15 @@ class ProfileScreen extends ConsumerWidget {
                     context: context,
                     applicationName: 'WorkHubz',
                     applicationVersion: '1.0.0',
-                    applicationIcon: Image.asset('assets/branding/app_icon_legacy.png', width: 48, height: 48),
+                    applicationIcon: Image.asset(
+                      'assets/branding/app_icon_legacy.png',
+                      width: 48,
+                      height: 48,
+                    ),
                     children: [
-                      const Text('Find and book workspaces in Nairobi. WorkHubz helps you locate the perfect environment for your work.'),
+                      const Text(
+                        'Find and book workspaces in Nairobi. WorkHubz helps you locate the perfect environment for your work.',
+                      ),
                     ],
                   );
                 },
@@ -157,10 +167,7 @@ class ProfileScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         gradient: LinearGradient(
-          colors: [
-            AppColors.primary,
-            AppColors.primaryLight,
-          ],
+          colors: [AppColors.primary, AppColors.primaryLight],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -173,9 +180,15 @@ class ProfileScreen extends ConsumerWidget {
               CircleAvatar(
                 radius: 28,
                 backgroundColor: AppColors.onPrimary,
-                backgroundImage: photoUrl != null ? NetworkImage(photoUrl) : null,
+                backgroundImage: photoUrl != null
+                    ? NetworkImage(photoUrl)
+                    : null,
                 child: photoUrl == null
-                    ? const Icon(Icons.person, size: 28, color: AppColors.primary)
+                    ? const Icon(
+                        Icons.person,
+                        size: 28,
+                        color: AppColors.primary,
+                      )
                     : null,
               ),
               const SizedBox(width: 12),
@@ -228,9 +241,7 @@ class ProfileScreen extends ConsumerWidget {
         children: [
           Text(
             value,
-            style: textTheme.titleMedium?.copyWith(
-              color: AppColors.onPrimary,
-            ),
+            style: textTheme.titleMedium?.copyWith(color: AppColors.onPrimary),
           ),
           const SizedBox(height: 4),
           Text(
@@ -247,9 +258,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget _buildSectionTitle(TextTheme textTheme, String title) {
     return Text(
       title,
-      style: textTheme.titleMedium?.copyWith(
-        color: AppColors.onBackground,
-      ),
+      style: textTheme.titleMedium?.copyWith(color: AppColors.onBackground),
     );
   }
 
@@ -270,7 +279,10 @@ class ProfileScreen extends ConsumerWidget {
               left: 16,
               bottom: 16,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.surface.withValues(alpha: 0.9),
                   borderRadius: BorderRadius.circular(12),
@@ -289,7 +301,10 @@ class ProfileScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildMenuCard(BuildContext context, {required List<Widget> children}) {
+  Widget _buildMenuCard(
+    BuildContext context, {
+    required List<Widget> children,
+  }) {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.surface,
@@ -310,10 +325,7 @@ class ProfileScreen extends ConsumerWidget {
   }) {
     return ListTile(
       leading: Icon(icon, color: textColor ?? AppColors.onSurface),
-      title: Text(
-        title,
-        style: TextStyle(color: textColor),
-      ),
+      title: Text(title, style: TextStyle(color: textColor)),
       subtitle: subtitle == null
           ? null
           : Text(
@@ -349,10 +361,7 @@ class ProfileScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              Text(
-                'Settings',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+              Text('Settings', style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 16),
               SwitchListTile(
                 title: const Text('Notifications'),

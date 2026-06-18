@@ -106,19 +106,13 @@ class _QrCheckinViewState extends State<QrCheckinView>
           // Space name
           Text(
             widget.spaceName,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
             'Booking ID: ${widget.bookingId.substring(0, 8)}...',
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey[600],
-            ),
+            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
           ),
           const SizedBox(height: 32),
 
@@ -159,18 +153,12 @@ class _QrCheckinViewState extends State<QrCheckinView>
               children: const [
                 Text(
                   'Check-In Instructions:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                 ),
                 SizedBox(height: 8),
                 Text(
                   '1. Show this QR code to the reception staff\n2. They will scan it to confirm your check-in\n3. You can now access the workspace',
-                  style: TextStyle(
-                    fontSize: 11,
-                    height: 1.6,
-                  ),
+                  style: TextStyle(fontSize: 11, height: 1.6),
                 ),
               ],
             ),
@@ -213,10 +201,7 @@ class _QrCheckinViewState extends State<QrCheckinView>
                         children: [
                           const Text(
                             'Checked in at',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey,
-                            ),
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
                           ),
                           Text(
                             _formatTime(widget.checkInTime),
@@ -276,10 +261,7 @@ class _QrCheckinViewState extends State<QrCheckinView>
 class QrScannerOverlay extends StatelessWidget {
   final double size;
 
-  const QrScannerOverlay({
-    super.key,
-    this.size = 300,
-  });
+  const QrScannerOverlay({super.key, this.size = 300});
 
   @override
   Widget build(BuildContext context) {
@@ -288,19 +270,14 @@ class QrScannerOverlay extends StatelessWidget {
       child: Stack(
         children: [
           // Dimmed areas
-          Container(
-            color: Colors.black.withValues(alpha: 0.7),
-          ),
+          Container(color: Colors.black.withValues(alpha: 0.7)),
           // Transparent center
           Center(
             child: Container(
               width: size,
               height: size,
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColors.success,
-                  width: 2,
-                ),
+                border: Border.all(color: AppColors.success, width: 2),
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
@@ -321,14 +298,8 @@ class QrScannerOverlay extends StatelessWidget {
                       height: 40,
                       decoration: BoxDecoration(
                         border: Border(
-                          top: BorderSide(
-                            color: AppColors.success,
-                            width: 4,
-                          ),
-                          left: BorderSide(
-                            color: AppColors.success,
-                            width: 4,
-                          ),
+                          top: BorderSide(color: AppColors.success, width: 4),
+                          left: BorderSide(color: AppColors.success, width: 4),
                         ),
                       ),
                     ),
@@ -342,14 +313,8 @@ class QrScannerOverlay extends StatelessWidget {
                       height: 40,
                       decoration: BoxDecoration(
                         border: Border(
-                          top: BorderSide(
-                            color: AppColors.success,
-                            width: 4,
-                          ),
-                          right: BorderSide(
-                            color: AppColors.success,
-                            width: 4,
-                          ),
+                          top: BorderSide(color: AppColors.success, width: 4),
+                          right: BorderSide(color: AppColors.success, width: 4),
                         ),
                       ),
                     ),
@@ -367,10 +332,7 @@ class QrScannerOverlay extends StatelessWidget {
                             color: AppColors.success,
                             width: 4,
                           ),
-                          left: BorderSide(
-                            color: AppColors.success,
-                            width: 4,
-                          ),
+                          left: BorderSide(color: AppColors.success, width: 4),
                         ),
                       ),
                     ),
@@ -388,10 +350,7 @@ class QrScannerOverlay extends StatelessWidget {
                             color: AppColors.success,
                             width: 4,
                           ),
-                          right: BorderSide(
-                            color: AppColors.success,
-                            width: 4,
-                          ),
+                          right: BorderSide(color: AppColors.success, width: 4),
                         ),
                       ),
                     ),

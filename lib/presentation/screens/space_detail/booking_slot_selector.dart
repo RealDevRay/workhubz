@@ -141,9 +141,7 @@ class _BookingSlotSelectorState extends State<BookingSlotSelector> {
                                   vertical: 10,
                                 ),
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey[300]!,
-                                  ),
+                                  border: Border.all(color: Colors.grey[300]!),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
@@ -169,9 +167,7 @@ class _BookingSlotSelectorState extends State<BookingSlotSelector> {
                                   vertical: 10,
                                 ),
                                 decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.grey[300]!,
-                                  ),
+                                  border: Border.all(color: Colors.grey[300]!),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(

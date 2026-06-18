@@ -6,11 +6,7 @@ class PriceChip extends StatelessWidget {
   final double price;
   final bool showIcon;
 
-  const PriceChip({
-    super.key,
-    required this.price,
-    this.showIcon = false,
-  });
+  const PriceChip({super.key, required this.price, this.showIcon = false});
 
   @override
   Widget build(BuildContext context) {

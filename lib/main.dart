@@ -23,16 +23,9 @@ Future<void> main() async {
     );
   }
 
-  await Supabase.initialize(
-    url: supabaseUrl,
-    anonKey: supabaseAnonKey,
-  );
+  await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey);
 
-  runApp(
-    const ProviderScope(
-      child: WorkHubzApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: WorkHubzApp()));
 }
 
 class WorkHubzApp extends StatelessWidget {

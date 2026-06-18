@@ -42,7 +42,10 @@ class _MapExploreScreenState extends ConsumerState<MapExploreScreen> {
     final position = locationState.position;
     final initialPosition = position != null
         ? LatLng(position.latitude, position.longitude)
-        : const LatLng(AppConstants.defaultLatitude, AppConstants.defaultLongitude);
+        : const LatLng(
+            AppConstants.defaultLatitude,
+            AppConstants.defaultLongitude,
+          );
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
@@ -208,13 +211,7 @@ class _MapExploreScreenState extends ConsumerState<MapExploreScreen> {
   }
 
   Widget _buildQuickFilters() {
-    final filters = [
-      'Quiet',
-      '24/7',
-      'Power Backup',
-      'Parking',
-      'Outdoor',
-    ];
+    final filters = ['Quiet', '24/7', 'Power Backup', 'Parking', 'Outdoor'];
 
     return SizedBox(
       height: 38,
@@ -372,9 +369,7 @@ class _MapExploreScreenState extends ConsumerState<MapExploreScreen> {
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        PriceChip(
-                          price: _selectedSpace!.pricing.hourlyRate,
-                        ),
+                        PriceChip(price: _selectedSpace!.pricing.hourlyRate),
                         const SizedBox(width: 8),
                         const Icon(Icons.star, color: Colors.amber, size: 16),
                         const SizedBox(width: 2),
@@ -432,8 +427,8 @@ class _MapExploreScreenState extends ConsumerState<MapExploreScreen> {
             space.pricing.hourlyRate < 100
                 ? BitmapDescriptor.hueGreen
                 : space.pricing.hourlyRate < 250
-                    ? BitmapDescriptor.hueOrange
-                    : BitmapDescriptor.hueRed,
+                ? BitmapDescriptor.hueOrange
+                : BitmapDescriptor.hueRed,
           ),
           onTap: () {
             setState(() => _selectedSpace = space);
@@ -465,11 +460,21 @@ class _MapExploreScreenState extends ConsumerState<MapExploreScreen> {
       builder: (context) => FilterBottomSheet(
         onApply: (filters) {
           ref.read(spaceFilterProvider.notifier).setMaxPrice(filters.maxPrice);
-          ref.read(spaceFilterProvider.notifier).setHasWifi(filters.amenities.contains('wifi'));
-          ref.read(spaceFilterProvider.notifier).setHasParking(filters.amenities.contains('parking'));
-          ref.read(spaceFilterProvider.notifier).setHasQuietZone(filters.amenities.contains('quiet'));
-          ref.read(spaceFilterProvider.notifier).setHasPowerBackup(filters.amenities.contains('backup'));
-          ref.read(spaceFilterProvider.notifier).setSelectedNeighborhoods(filters.neighborhoods);
+          ref
+              .read(spaceFilterProvider.notifier)
+              .setHasWifi(filters.amenities.contains('wifi'));
+          ref
+              .read(spaceFilterProvider.notifier)
+              .setHasParking(filters.amenities.contains('parking'));
+          ref
+              .read(spaceFilterProvider.notifier)
+              .setHasQuietZone(filters.amenities.contains('quiet'));
+          ref
+              .read(spaceFilterProvider.notifier)
+              .setHasPowerBackup(filters.amenities.contains('backup'));
+          ref
+              .read(spaceFilterProvider.notifier)
+              .setSelectedNeighborhoods(filters.neighborhoods);
         },
       ),
     );

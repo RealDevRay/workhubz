@@ -5,7 +5,7 @@ class BookingRepository {
   final SupabaseClient _supabase;
 
   BookingRepository({SupabaseClient? supabase})
-      : _supabase = supabase ?? Supabase.instance.client;
+    : _supabase = supabase ?? Supabase.instance.client;
 
   Future<List<BookingModel>> getUserBookings(String userId) async {
     final response = await _supabase
@@ -76,13 +76,16 @@ class BookingRepository {
   }
 
   Future<void> updateBooking(BookingModel booking) async {
-    await _supabase.from('bookings').update({
-      'payment_status': booking.paymentStatus.name,
-      'booking_status': booking.bookingStatus.name,
-      'mpesa_receipt_number': booking.mpesaReceiptNumber,
-      'checked_in_at': booking.checkedInAt?.toIso8601String(),
-      'checked_out_at': booking.checkedOutAt?.toIso8601String(),
-    }).eq('id', booking.id);
+    await _supabase
+        .from('bookings')
+        .update({
+          'payment_status': booking.paymentStatus.name,
+          'booking_status': booking.bookingStatus.name,
+          'mpesa_receipt_number': booking.mpesaReceiptNumber,
+          'checked_in_at': booking.checkedInAt?.toIso8601String(),
+          'checked_out_at': booking.checkedOutAt?.toIso8601String(),
+        })
+        .eq('id', booking.id);
   }
 
   Future<void> updatePaymentStatus(
@@ -90,39 +93,50 @@ class BookingRepository {
     PaymentStatus status, {
     String? mpesaReceiptNumber,
   }) async {
-    await _supabase.from('bookings').update({
-      'payment_status': status.name,
-      'mpesa_receipt_number': mpesaReceiptNumber,
-    }).eq('id', bookingId);
+    await _supabase
+        .from('bookings')
+        .update({
+          'payment_status': status.name,
+          'mpesa_receipt_number': mpesaReceiptNumber,
+        })
+        .eq('id', bookingId);
   }
 
   Future<void> updateBookingStatus(
     String bookingId,
     BookingStatus status,
   ) async {
-    await _supabase.from('bookings').update({
-      'booking_status': status.name,
-    }).eq('id', bookingId);
+    await _supabase
+        .from('bookings')
+        .update({'booking_status': status.name})
+        .eq('id', bookingId);
   }
 
   Future<void> checkIn(String bookingId) async {
-    await _supabase.from('bookings').update({
-      'checked_in_at': DateTime.now().toIso8601String(),
-      'booking_status': BookingStatus.active.name,
-    }).eq('id', bookingId);
+    await _supabase
+        .from('bookings')
+        .update({
+          'checked_in_at': DateTime.now().toIso8601String(),
+          'booking_status': BookingStatus.active.name,
+        })
+        .eq('id', bookingId);
   }
 
   Future<void> checkOut(String bookingId) async {
-    await _supabase.from('bookings').update({
-      'checked_out_at': DateTime.now().toIso8601String(),
-      'booking_status': BookingStatus.completed.name,
-    }).eq('id', bookingId);
+    await _supabase
+        .from('bookings')
+        .update({
+          'checked_out_at': DateTime.now().toIso8601String(),
+          'booking_status': BookingStatus.completed.name,
+        })
+        .eq('id', bookingId);
   }
 
   Future<void> cancelBooking(String bookingId) async {
-    await _supabase.from('bookings').update({
-      'booking_status': BookingStatus.cancelled.name,
-    }).eq('id', bookingId);
+    await _supabase
+        .from('bookings')
+        .update({'booking_status': BookingStatus.cancelled.name})
+        .eq('id', bookingId);
   }
 
   Future<void> deleteBooking(String id) async {

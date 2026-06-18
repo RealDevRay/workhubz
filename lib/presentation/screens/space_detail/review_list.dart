@@ -46,19 +46,14 @@ class ReviewList extends StatelessWidget {
                         direction: Axis.horizontal,
                         allowHalfRating: true,
                         itemCount: 5,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: AppColors.warning,
-                        ),
+                        itemBuilder: (context, _) =>
+                            const Icon(Icons.star, color: AppColors.warning),
                         onRatingUpdate: (_) {},
                       ),
                       const SizedBox(height: 4),
                       Text(
                         '$totalReviews reviews',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 12,
-                        ),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 12),
                       ),
                     ],
                   ),
@@ -101,10 +96,7 @@ class ReviewList extends StatelessWidget {
         children: [
           Text(
             category,
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 12,
-            ),
+            style: TextStyle(color: Colors.grey[600], fontSize: 12),
           ),
           Row(
             children: [
@@ -115,11 +107,8 @@ class ReviewList extends StatelessWidget {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemBuilder: (context, _) => const Icon(
-                  Icons.star,
-                  color: AppColors.warning,
-                  size: 14,
-                ),
+                itemBuilder: (context, _) =>
+                    const Icon(Icons.star, color: AppColors.warning, size: 14),
                 onRatingUpdate: (_) {},
               ),
               const SizedBox(width: 8),
@@ -153,10 +142,7 @@ class ReviewList extends StatelessWidget {
                     ),
                     Text(
                       _formatDate(review.createdAt),
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: Colors.grey[600], fontSize: 12),
                     ),
                   ],
                 ),
@@ -168,28 +154,18 @@ class ReviewList extends StatelessWidget {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemBuilder: (context, _) => const Icon(
-                  Icons.star,
-                  color: AppColors.warning,
-                ),
+                itemBuilder: (context, _) =>
+                    const Icon(Icons.star, color: AppColors.warning),
                 onRatingUpdate: (_) {},
               ),
             ],
           ),
           const SizedBox(height: 8),
-          Text(
-            "",
-            style: const TextStyle(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          Text("", style: const TextStyle(fontWeight: FontWeight.w600)),
           const SizedBox(height: 4),
           Text(
             review.comment ?? "",
-            style: TextStyle(
-              color: Colors.grey[700],
-              height: 1.5,
-            ),
+            style: TextStyle(color: Colors.grey[700], height: 1.5),
           ),
           if (review.photoUrls.isNotEmpty) ...[
             const SizedBox(height: 8),

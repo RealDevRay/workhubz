@@ -39,9 +39,9 @@ class _AiSearchWidgetState extends ConsumerState<AiSearchWidget> {
               Text(
                 'AI Smart Search',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
@@ -64,7 +64,10 @@ class _AiSearchWidgetState extends ConsumerState<AiSearchWidget> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                   ),
                   onSubmitted: (_) => _performAiSearch(),
                 ),
@@ -73,13 +76,19 @@ class _AiSearchWidgetState extends ConsumerState<AiSearchWidget> {
               isLoading
                   ? const Padding(
                       padding: EdgeInsets.all(12),
-                      child: SizedBox(width: 24, height: 24, child: CircularProgressIndicator(strokeWidth: 2)),
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
                     )
                   : IconButton(
                       onPressed: _performAiSearch,
                       icon: const Icon(Icons.send, color: AppColors.primary),
                       style: IconButton.styleFrom(
-                        backgroundColor: AppColors.primary.withValues(alpha: 0.2),
+                        backgroundColor: AppColors.primary.withValues(
+                          alpha: 0.2,
+                        ),
                       ),
                     ),
             ],
@@ -97,7 +106,7 @@ class _AiSearchWidgetState extends ConsumerState<AiSearchWidget> {
     ref.read(aiSearchLoadingProvider.notifier).state = true;
 
     final result = await _groqService.parseSearchQuery(query);
-    
+
     ref.read(aiSearchLoadingProvider.notifier).state = false;
 
     if (result.data != null) {
@@ -112,4 +121,3 @@ class _AiSearchWidgetState extends ConsumerState<AiSearchWidget> {
     }
   }
 }
-

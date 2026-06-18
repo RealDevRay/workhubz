@@ -61,10 +61,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.tune),
-            ),
+            child: IconButton(onPressed: () {}, icon: const Icon(Icons.tune)),
           ),
         ],
       ),
@@ -84,17 +81,29 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             final maxPrice = filters['maxPrice'];
             final amenitiesList = filters['amenities'] as List<dynamic>? ?? [];
 
-            ref.read(spaceFilterProvider.notifier).setMaxPrice(
-              maxPrice != null ? (maxPrice as num).toDouble() : null
-            );
-            ref.read(spaceFilterProvider.notifier).setSelectedNeighborhoods(
-              neighborhood != null ? [neighborhood] : []
-            );
+            ref
+                .read(spaceFilterProvider.notifier)
+                .setMaxPrice(
+                  maxPrice != null ? (maxPrice as num).toDouble() : null,
+                );
+            ref
+                .read(spaceFilterProvider.notifier)
+                .setSelectedNeighborhoods(
+                  neighborhood != null ? [neighborhood] : [],
+                );
 
-            final amenities = amenitiesList.map((e) => e.toString().toLowerCase()).toList();
-            ref.read(spaceFilterProvider.notifier).setHasWifi(amenities.contains('wifi'));
-            ref.read(spaceFilterProvider.notifier).setHasParking(amenities.contains('parking'));
-            ref.read(spaceFilterProvider.notifier).setHasQuietZone(amenities.contains('quiet'));
+            final amenities = amenitiesList
+                .map((e) => e.toString().toLowerCase())
+                .toList();
+            ref
+                .read(spaceFilterProvider.notifier)
+                .setHasWifi(amenities.contains('wifi'));
+            ref
+                .read(spaceFilterProvider.notifier)
+                .setHasParking(amenities.contains('parking'));
+            ref
+                .read(spaceFilterProvider.notifier)
+                .setHasQuietZone(amenities.contains('quiet'));
 
             // Trigger a text search using the neighborhood or query terms
             final searchTerm = neighborhood ?? amenitiesList.join(' ');
@@ -102,7 +111,11 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             _onSearchChanged(searchTerm);
 
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('AI applied filters${neighborhood != null ? ' for $neighborhood' : ''}.')),
+              SnackBar(
+                content: Text(
+                  'AI applied filters${neighborhood != null ? ' for $neighborhood' : ''}.',
+                ),
+              ),
             );
           },
         ),
@@ -115,15 +128,34 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             separatorBuilder: (_, _) => const SizedBox(width: 12),
             itemBuilder: (context, index) {
               final data = [
-                ('Quiet corners', 'Low noise, fast Wi-Fi', Icons.spa, AppColors.neighborhoodKaren),
-                ('Open late', 'Night owls welcome', Icons.nightlight, AppColors.neighborhoodCbd),
-                ('Team friendly', 'Meeting-ready spaces', Icons.groups, AppColors.neighborhoodWestlands),
+                (
+                  'Quiet corners',
+                  'Low noise, fast Wi-Fi',
+                  Icons.spa,
+                  AppColors.neighborhoodKaren,
+                ),
+                (
+                  'Open late',
+                  'Night owls welcome',
+                  Icons.nightlight,
+                  AppColors.neighborhoodCbd,
+                ),
+                (
+                  'Team friendly',
+                  'Meeting-ready spaces',
+                  Icons.groups,
+                  AppColors.neighborhoodWestlands,
+                ),
               ][index];
 
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  final searchTerm = data.$1 == 'Quiet corners' ? 'quiet' : data.$1 == 'Open late' ? 'late' : 'team';
+                  final searchTerm = data.$1 == 'Quiet corners'
+                      ? 'quiet'
+                      : data.$1 == 'Open late'
+                      ? 'late'
+                      : 'team';
                   _searchController.text = searchTerm;
                   _onSearchChanged(searchTerm);
                 },
@@ -143,23 +175,24 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         Wrap(
           spacing: 8,
           runSpacing: 8,
-          children: [
-            'Wi-Fi',
-            'Quiet',
-            'Parking',
-            'Power backup',
-            '24 hours',
-            'Food allowed',
-          ].map((tag) {
-            return FilterChip(
-              label: Text(tag),
-              selected: false,
-              onSelected: (_) {
-                _searchController.text = tag;
-                _onSearchChanged(tag);
-              },
-            );
-          }).toList(),
+          children:
+              [
+                'Wi-Fi',
+                'Quiet',
+                'Parking',
+                'Power backup',
+                '24 hours',
+                'Food allowed',
+              ].map((tag) {
+                return FilterChip(
+                  label: Text(tag),
+                  selected: false,
+                  onSelected: (_) {
+                    _searchController.text = tag;
+                    _onSearchChanged(tag);
+                  },
+                );
+              }).toList(),
         ),
         const SizedBox(height: 24),
         _buildSectionHeader('Browse by neighborhood'),
@@ -220,7 +253,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (err, _) => Center(
-        child: Text('Error: $err', style: const TextStyle(color: AppColors.error)),
+        child: Text(
+          'Error: $err',
+          style: const TextStyle(color: AppColors.error),
+        ),
       ),
     );
   }
@@ -284,31 +320,42 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   Text(
                     space.neighborhood,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: AppColors.onSurfaceVariant,
-                        ),
+                      color: AppColors.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(height: 12),
                   Row(
                     children: [
                       Text(
                         CurrencyFormatter.formatKes(space.pricing.hourlyRate),
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.w700),
                       ),
                       const SizedBox(width: 4),
                       Text(
                         '/hr',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColors.onSurfaceVariant,
-                            ),
+                          color: AppColors.onSurfaceVariant,
+                        ),
                       ),
                       const Spacer(),
-                      const Icon(Icons.wifi, size: 16, color: AppColors.secondary),
+                      const Icon(
+                        Icons.wifi,
+                        size: 16,
+                        color: AppColors.secondary,
+                      ),
                       const SizedBox(width: 6),
-                      const Icon(Icons.chair, size: 16, color: AppColors.secondary),
+                      const Icon(
+                        Icons.chair,
+                        size: 16,
+                        color: AppColors.secondary,
+                      ),
                       const SizedBox(width: 6),
-                      const Icon(Icons.power, size: 16, color: AppColors.secondary),
+                      const Icon(
+                        Icons.power,
+                        size: 16,
+                        color: AppColors.secondary,
+                      ),
                     ],
                   ),
                 ],
@@ -323,9 +370,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
-      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: AppColors.onBackground,
-          ),
+      style: Theme.of(
+        context,
+      ).textTheme.titleLarge?.copyWith(color: AppColors.onBackground),
     );
   }
 
@@ -355,16 +402,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             child: Icon(icon, color: accent),
           ),
           const Spacer(),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
+          Text(title, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 6),
           Text(
             subtitle,
-            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.onSurfaceVariant,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.bodySmall?.copyWith(color: AppColors.onSurfaceVariant),
           ),
         ],
       ),

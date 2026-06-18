@@ -153,11 +153,7 @@ class AmenityBadge extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              _getIcon(),
-              size: 16,
-              color: color,
-            ),
+            Icon(_getIcon(), size: 16, color: color),
             const SizedBox(width: 6),
             Text(
               name,

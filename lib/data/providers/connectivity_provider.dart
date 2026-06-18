@@ -10,4 +10,3 @@ final connectivityStatusProvider = StreamProvider<bool>((ref) {
   final service = ref.watch(connectivityServiceProvider);
   return service.connectionStream.map((r) => r != ConnectivityResult.none);
 });
-

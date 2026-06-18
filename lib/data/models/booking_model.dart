@@ -1,19 +1,8 @@
 import 'geo_point.dart';
 
-enum BookingStatus {
-  upcoming,
-  active,
-  completed,
-  cancelled,
-  noShow,
-  pending,
-}
+enum BookingStatus { upcoming, active, completed, cancelled, noShow, pending }
 
-enum PaymentStatus {
-  pending,
-  paid,
-  refunded,
-}
+enum PaymentStatus { pending, paid, refunded }
 
 class BookingModel {
   final String id;
@@ -172,7 +161,9 @@ class BookingModel {
 
   bool get canCheckIn {
     final now = DateTime.now();
-    final fifteenMinutesBefore = startTime.subtract(const Duration(minutes: 15));
+    final fifteenMinutesBefore = startTime.subtract(
+      const Duration(minutes: 15),
+    );
     final thirtyMinutesAfter = startTime.add(const Duration(minutes: 30));
     return bookingStatus == BookingStatus.upcoming &&
         paymentStatus == PaymentStatus.paid &&

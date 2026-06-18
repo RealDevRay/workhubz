@@ -1,4 +1,3 @@
-
 enum AmenityCategory {
   connectivity,
   power,

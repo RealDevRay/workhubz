@@ -5,9 +5,7 @@ class Validators {
       return 'Phone number is required';
     }
 
-    final phoneRegex = RegExp(
-      r'^(\+254|0)?(7|1)([0-9]{8})$',
-    );
+    final phoneRegex = RegExp(r'^(\+254|0)?(7|1)([0-9]{8})$');
 
     if (!phoneRegex.hasMatch(value)) {
       return 'Invalid Kenyan phone number format';

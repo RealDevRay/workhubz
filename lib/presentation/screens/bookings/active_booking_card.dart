@@ -91,10 +91,7 @@ class ActiveBookingCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         _formatDateTime(booking.startTime),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ],
                   ),
@@ -137,10 +134,7 @@ class ActiveBookingCard extends StatelessWidget {
                   children: [
                     Text(
                       'Duration',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     ),
                     Text(
                       _formatDuration(booking.startTime, booking.endTime),
@@ -157,10 +151,7 @@ class ActiveBookingCard extends StatelessWidget {
                   children: [
                     Text(
                       'Amount',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     ),
                     Text(
                       'KSh ${booking.totalAmount.toInt()}',
@@ -178,10 +169,7 @@ class ActiveBookingCard extends StatelessWidget {
                   children: [
                     Text(
                       'Payment',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey[600],
-                      ),
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -199,7 +187,7 @@ class ActiveBookingCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
-                      color: booking.paymentStatus == PaymentStatus.paid
+                          color: booking.paymentStatus == PaymentStatus.paid
                               ? AppColors.success
                               : AppColors.warning,
                         ),
@@ -225,9 +213,11 @@ class ActiveBookingCard extends StatelessWidget {
                       label: const Text('View Details'),
                     ),
                   ),
-                if (onViewDetails != null && booking.bookingStatus == BookingStatus.upcoming)
+                if (onViewDetails != null &&
+                    booking.bookingStatus == BookingStatus.upcoming)
                   const SizedBox(width: 8),
-                if (booking.bookingStatus == BookingStatus.upcoming && onCancel != null)
+                if (booking.bookingStatus == BookingStatus.upcoming &&
+                    onCancel != null)
                   Expanded(
                     child: OutlinedButton.icon(
                       onPressed: onCancel,
@@ -303,20 +293,13 @@ class BookingHistoryCard extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         _formatDateRange(booking.startTime, booking.endTime),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ],
                   ),
                 ),
                 if (booking.isRated)
-                  const Icon(
-                    Icons.star,
-                    color: AppColors.warning,
-                    size: 20,
-                  ),
+                  const Icon(Icons.star, color: AppColors.warning, size: 20),
               ],
             ),
             const SizedBox(height: 12),
@@ -330,7 +313,8 @@ class BookingHistoryCard extends StatelessWidget {
                       child: const Text('Rebook'),
                     ),
                   ),
-                if (onRebook != null && onReview != null) const SizedBox(width: 8),
+                if (onRebook != null && onReview != null)
+                  const SizedBox(width: 8),
                 if (onReview != null && !booking.isRated)
                   Expanded(
                     child: ElevatedButton(
@@ -338,7 +322,10 @@ class BookingHistoryCard extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primary,
                       ),
-                      child: const Text('Review', style: TextStyle(color: Colors.white)),
+                      child: const Text(
+                        'Review',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
               ],
@@ -350,7 +337,8 @@ class BookingHistoryCard extends StatelessWidget {
   }
 
   String _formatDateRange(DateTime startTime, DateTime endTime) {
-    final sameDay = startTime.day == endTime.day &&
+    final sameDay =
+        startTime.day == endTime.day &&
         startTime.month == endTime.month &&
         startTime.year == endTime.year;
 

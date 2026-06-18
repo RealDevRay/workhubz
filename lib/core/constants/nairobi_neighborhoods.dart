@@ -16,5 +16,3 @@ enum NairobiNeighborhood {
   final String displayName;
   const NairobiNeighborhood(this.displayName);
 }
-
-

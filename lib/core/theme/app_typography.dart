@@ -3,55 +3,40 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTypography {
   static TextTheme get textTheme => TextTheme(
-        displayLarge: GoogleFonts.fraunces(
-          fontSize: 40,
-          fontWeight: FontWeight.w600,
-          letterSpacing: -0.5,
-        ),
-        displayMedium: GoogleFonts.fraunces(
-          fontSize: 32,
-          fontWeight: FontWeight.w600,
-          letterSpacing: -0.3,
-        ),
-        headlineLarge: GoogleFonts.fraunces(
-          fontSize: 28,
-          fontWeight: FontWeight.w600,
-        ),
-        headlineMedium: GoogleFonts.fraunces(
-          fontSize: 22,
-          fontWeight: FontWeight.w600,
-        ),
-        titleLarge: GoogleFonts.manrope(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-        titleMedium: GoogleFonts.manrope(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
-        bodyLarge: GoogleFonts.manrope(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-        ),
-        bodyMedium: GoogleFonts.manrope(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
-        bodySmall: GoogleFonts.manrope(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),
-        labelLarge: GoogleFonts.manrope(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.6,
-        ),
-        labelMedium: GoogleFonts.manrope(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          letterSpacing: 0.4,
-        ),
-      );
+    displayLarge: GoogleFonts.fraunces(
+      fontSize: 40,
+      fontWeight: FontWeight.w600,
+      letterSpacing: -0.5,
+    ),
+    displayMedium: GoogleFonts.fraunces(
+      fontSize: 32,
+      fontWeight: FontWeight.w600,
+      letterSpacing: -0.3,
+    ),
+    headlineLarge: GoogleFonts.fraunces(
+      fontSize: 28,
+      fontWeight: FontWeight.w600,
+    ),
+    headlineMedium: GoogleFonts.fraunces(
+      fontSize: 22,
+      fontWeight: FontWeight.w600,
+    ),
+    titleLarge: GoogleFonts.manrope(fontSize: 20, fontWeight: FontWeight.w600),
+    titleMedium: GoogleFonts.manrope(fontSize: 16, fontWeight: FontWeight.w600),
+    bodyLarge: GoogleFonts.manrope(fontSize: 16, fontWeight: FontWeight.w400),
+    bodyMedium: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w400),
+    bodySmall: GoogleFonts.manrope(fontSize: 12, fontWeight: FontWeight.w400),
+    labelLarge: GoogleFonts.manrope(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.6,
+    ),
+    labelMedium: GoogleFonts.manrope(
+      fontSize: 12,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.4,
+    ),
+  );
 
   static TextStyle get headline1 => textTheme.displayMedium!;
 
@@ -74,13 +59,11 @@ class AppTypography {
   static TextStyle get caption => textTheme.bodySmall!;
 
   static TextStyle get button => GoogleFonts.manrope(
-        fontSize: 14,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 0.6,
-      );
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.6,
+  );
 
-  static TextStyle get price => GoogleFonts.manrope(
-        fontSize: 16,
-        fontWeight: FontWeight.w700,
-      );
+  static TextStyle get price =>
+      GoogleFonts.manrope(fontSize: 16, fontWeight: FontWeight.w700);
 }

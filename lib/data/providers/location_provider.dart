@@ -22,17 +22,9 @@ class LocationState {
   final bool isLoading;
   final String? error;
 
-  const LocationState({
-    this.position,
-    this.isLoading = false,
-    this.error,
-  });
+  const LocationState({this.position, this.isLoading = false, this.error});
 
-  LocationState copyWith({
-    Position? position,
-    bool? isLoading,
-    String? error,
-  }) {
+  LocationState copyWith({Position? position, bool? isLoading, String? error}) {
     return LocationState(
       position: position ?? this.position,
       isLoading: isLoading ?? this.isLoading,
@@ -75,7 +67,8 @@ class LocationNotifier extends StateNotifier<LocationState> {
       if (permission == LocationPermission.deniedForever) {
         state = state.copyWith(
           isLoading: false,
-          error: 'Location permissions are permanently denied, we cannot request permissions.',
+          error:
+              'Location permissions are permanently denied, we cannot request permissions.',
         );
         return;
       }
@@ -84,20 +77,14 @@ class LocationNotifier extends StateNotifier<LocationState> {
         desiredAccuracy: LocationAccuracy.high,
       );
 
-      state = state.copyWith(
-        position: position,
-        isLoading: false,
-        error: null,
-      );
+      state = state.copyWith(position: position, isLoading: false, error: null);
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        error: e.toString(),
-      );
+      state = state.copyWith(isLoading: false, error: e.toString());
     }
   }
 }
 
-final locationNotifierProvider = StateNotifierProvider<LocationNotifier, LocationState>((ref) {
-  return LocationNotifier();
-});
+final locationNotifierProvider =
+    StateNotifierProvider<LocationNotifier, LocationState>((ref) {
+      return LocationNotifier();
+    });

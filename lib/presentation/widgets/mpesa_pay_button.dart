@@ -34,9 +34,7 @@ class _MpesaPayButtonState extends State<MpesaPayButton> {
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF0DB42D), // M-Pesa green
           padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         icon: widget.isLoading
             ? const SizedBox(
@@ -174,7 +172,9 @@ class MpesaPaymentCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: isPaid ? Colors.grey.withValues(alpha: 0.3) : const Color(0xFF0DB42D).withValues(alpha: 0.3),
+            color: isPaid
+                ? Colors.grey.withValues(alpha: 0.3)
+                : const Color(0xFF0DB42D).withValues(alpha: 0.3),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),
@@ -207,11 +207,7 @@ class MpesaPaymentCard extends StatelessWidget {
                   ),
                   child: const Row(
                     children: [
-                      Icon(
-                        Icons.check_circle,
-                        color: Colors.white,
-                        size: 16,
-                      ),
+                      Icon(Icons.check_circle, color: Colors.white, size: 16),
                       SizedBox(width: 4),
                       Text(
                         'PAID',
@@ -240,10 +236,7 @@ class MpesaPaymentCard extends StatelessWidget {
             children: [
               const Text(
                 'Total Amount',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
               Text(
                 'KSh ${amount.toInt()}',

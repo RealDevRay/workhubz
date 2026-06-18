@@ -7,10 +7,7 @@ import '../../../data/providers/auth_provider.dart';
 class PhoneLoginScreen extends ConsumerWidget {
   final String? redirectTo;
 
-  const PhoneLoginScreen({
-    super.key,
-    this.redirectTo,
-  });
+  const PhoneLoginScreen({super.key, this.redirectTo});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,10 +59,12 @@ class PhoneLoginScreen extends ConsumerWidget {
                 height: 52,
                 child: OutlinedButton.icon(
                   onPressed: () async {
-                    final redirect = redirectTo ?? 'io.supabase.flutter://callback';
+                    final redirect =
+                        redirectTo ?? 'io.supabase.flutter://callback';
                     await ref.read(signInWithGoogleProvider(redirect).future);
                     // After successful sign-in (deep link resumes), navigate to redirect if provided
-                    if (redirect.isNotEmpty && redirect != 'io.supabase.flutter://callback') {
+                    if (redirect.isNotEmpty &&
+                        redirect != 'io.supabase.flutter://callback') {
                       if (context.mounted) {
                         context.go(redirect);
                       }

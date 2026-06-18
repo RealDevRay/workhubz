@@ -10,21 +10,33 @@ class MpesaService {
   DateTime? _tokenExpiry;
 
   MpesaService({Dio? dio})
-      : _dio = dio ?? Dio(BaseOptions(
-          baseUrl: ApiEndpoints.darajaBaseUrl,
-          connectTimeout: const Duration(seconds: 30),
-          receiveTimeout: const Duration(seconds: 30),
-        ));
+    : _dio =
+          dio ??
+          Dio(
+            BaseOptions(
+              baseUrl: ApiEndpoints.darajaBaseUrl,
+              connectTimeout: const Duration(seconds: 30),
+              receiveTimeout: const Duration(seconds: 30),
+            ),
+          );
 
   Future<String?> _getAccessToken() async {
-    if (_accessToken != null && _tokenExpiry != null && DateTime.now().isBefore(_tokenExpiry!)) {
+    if (_accessToken != null &&
+        _tokenExpiry != null &&
+        DateTime.now().isBefore(_tokenExpiry!)) {
       return _accessToken;
     }
 
     final consumerKey = const String.fromEnvironment('MPESA_CONSUMER_KEY');
-    final consumerSecret = const String.fromEnvironment('MPESA_CONSUMER_SECRET');
+    final consumerSecret = const String.fromEnvironment(
+      'MPESA_CONSUMER_SECRET',
+    );
     if (consumerKey.isEmpty || consumerSecret.isEmpty) {
-      if (kDebugMode) debugPrint('MPESA: Consumer key or secret not set. Use --dart-define=MPESA_CONSUMER_KEY=... --dart-define=MPESA_CONSUMER_SECRET=... or the build script.');
+      if (kDebugMode) {
+        debugPrint(
+          'MPESA: Consumer key or secret not set. Use --dart-define=MPESA_CONSUMER_KEY=... --dart-define=MPESA_CONSUMER_SECRET=... or the build script.',
+        );
+      }
       return null;
     }
 
@@ -53,7 +65,11 @@ class MpesaService {
   }) async {
     final token = await _getAccessToken();
     if (token == null) {
-      return MpesaPaymentResult(success: false, errorMessage: 'Failed to authenticate with M-Pesa. Check MPESA_CONSUMER_KEY/SECRET (via --dart-define or build script) and network.');
+      return MpesaPaymentResult(
+        success: false,
+        errorMessage:
+            'Failed to authenticate with M-Pesa. Check MPESA_CONSUMER_KEY/SECRET (via --dart-define or build script) and network.',
+      );
     }
 
     try {
@@ -104,10 +120,16 @@ class MpesaService {
     }
   }
 
-  Future<MpesaPaymentResult> queryPaymentStatus(String checkoutRequestId) async {
+  Future<MpesaPaymentResult> queryPaymentStatus(
+    String checkoutRequestId,
+  ) async {
     final token = await _getAccessToken();
     if (token == null) {
-      return MpesaPaymentResult(success: false, errorMessage: 'Failed to authenticate with M-Pesa. Check MPESA_CONSUMER_KEY/SECRET (via --dart-define or build script) and network.');
+      return MpesaPaymentResult(
+        success: false,
+        errorMessage:
+            'Failed to authenticate with M-Pesa. Check MPESA_CONSUMER_KEY/SECRET (via --dart-define or build script) and network.',
+      );
     }
 
     try {
@@ -157,8 +179,12 @@ class MpesaService {
 
   String _normalizePhone(String phone) {
     String normalized = phone.replaceAll(RegExp(r'[\s\-\(\)]'), '');
-    if (normalized.startsWith('+')) normalized = normalized.substring(1);
-    if (normalized.startsWith('0')) normalized = '254${normalized.substring(1)}';
+    if (normalized.startsWith('+')) {
+      normalized = normalized.substring(1);
+    }
+    if (normalized.startsWith('0')) {
+      normalized = '254${normalized.substring(1)}';
+    }
     return normalized;
   }
 
@@ -168,7 +194,8 @@ class MpesaService {
   }
 
   String _generatePassword(String timestamp) {
-    final data = '${AppConstants.mpesaShortcode}${AppConstants.mpesaPasskey}$timestamp';
+    final data =
+        '${AppConstants.mpesaShortcode}${AppConstants.mpesaPasskey}$timestamp';
     return base64Encode(utf8.encode(data));
   }
 

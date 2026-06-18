@@ -54,10 +54,7 @@ class PriceMarker extends StatelessWidget {
           if (rating != null)
             Text(
               '⭐ ${rating!.toStringAsFixed(1)}',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 10,
-              ),
+              style: const TextStyle(color: Colors.white, fontSize: 10),
             ),
         ],
       ),

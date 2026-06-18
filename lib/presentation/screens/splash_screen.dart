@@ -72,10 +72,7 @@ class _SplashScreenState extends State<SplashScreen>
         children: [
           Container(
             decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: splashImage,
-                fit: BoxFit.cover,
-              ),
+              image: DecorationImage(image: splashImage, fit: BoxFit.cover),
             ),
           ),
           Container(
@@ -118,7 +115,9 @@ class _SplashScreenState extends State<SplashScreen>
                               borderRadius: BorderRadius.circular(26),
                               boxShadow: [
                                 BoxShadow(
-                                  color: AppColors.primary.withValues(alpha: 0.3),
+                                  color: AppColors.primary.withValues(
+                                    alpha: 0.3,
+                                  ),
                                   blurRadius: 24,
                                   offset: const Offset(0, 12),
                                 ),
@@ -257,10 +256,7 @@ class _SplashScreenModernState extends State<SplashScreenModern>
                     height: 100,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          AppColors.primary,
-                          Colors.blue[300]!,
-                        ],
+                        colors: [AppColors.primary, Colors.blue[300]!],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -294,10 +290,7 @@ class _SplashScreenModernState extends State<SplashScreenModern>
             const SizedBox(height: 12),
             Text(
               'Discover Premium Workspaces',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.grey[600]),
             ),
             const SizedBox(height: 60),
             // Animated Dots
@@ -314,9 +307,12 @@ class _SplashScreenModernState extends State<SplashScreenModern>
                         height: 8,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: AppColors.primary.withValues(alpha: 
-                            (sin((_controller.value * 6.28) - (index * 2.09))
-                                        .toDouble() +
+                          color: AppColors.primary.withValues(
+                            alpha:
+                                (sin(
+                                      (_controller.value * 6.28) -
+                                          (index * 2.09),
+                                    ).toDouble() +
                                     1) /
                                 2,
                           ),

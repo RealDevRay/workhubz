@@ -10,7 +10,7 @@ class SpaceRepository {
   final SupabaseClient _supabase;
 
   SpaceRepository({SupabaseClient? supabase})
-      : _supabase = supabase ?? Supabase.instance.client;
+    : _supabase = supabase ?? Supabase.instance.client;
 
   Future<List<SpaceModel>> getAllSpaces({
     int limit = 20,
@@ -23,12 +23,17 @@ class SpaceRepository {
       hub_photos(url, is_primary)
     ''');
 
-    if (neighborhood != null && neighborhood.isNotEmpty && neighborhood != 'All Nairobi' && neighborhood != 'current') {
+    if (neighborhood != null &&
+        neighborhood.isNotEmpty &&
+        neighborhood != 'All Nairobi' &&
+        neighborhood != 'current') {
       query = query.eq('neighborhood', neighborhood);
     }
 
     final response = await query.order('rating', ascending: false).limit(limit);
-    return (response as List).map((json) => _hubJsonToSpaceModel(json)).toList();
+    return (response as List)
+        .map((json) => _hubJsonToSpaceModel(json))
+        .toList();
   }
 
   Future<SpaceModel?> getSpaceById(String id) async {
@@ -70,7 +75,12 @@ class SpaceRepository {
     for (final hub in hubs) {
       final lat = (hub['latitude'] as num).toDouble();
       final lng = (hub['longitude'] as num).toDouble();
-      final distance = LocationUtils.calculateDistance(latitude, longitude, lat, lng);
+      final distance = LocationUtils.calculateDistance(
+        latitude,
+        longitude,
+        lat,
+        lng,
+      );
       if (distance <= radiusKm) {
         spaces.add(_HubWithDistance(hub: hub, distance: distance));
       }
@@ -93,10 +103,14 @@ class SpaceRepository {
           hub_amenities(amenity_id),
       hub_photos(url, is_primary)
         ''')
-        .or('name.ilike.%$searchTerm%,description.ilike.%$searchTerm%,neighborhood.ilike.%$searchTerm%')
+        .or(
+          'name.ilike.%$searchTerm%,description.ilike.%$searchTerm%,neighborhood.ilike.%$searchTerm%',
+        )
         .limit(limit);
 
-    return (response as List).map((json) => _hubJsonToSpaceModel(json)).toList();
+    return (response as List)
+        .map((json) => _hubJsonToSpaceModel(json))
+        .toList();
   }
 
   Future<List<SpaceModel>> getSpacesByNeighborhood(String neighborhood) async {
@@ -110,7 +124,9 @@ class SpaceRepository {
         ''')
         .eq('neighborhood', neighborhood.toLowerCase());
 
-    return (response as List).map((json) => _hubJsonToSpaceModel(json)).toList();
+    return (response as List)
+        .map((json) => _hubJsonToSpaceModel(json))
+        .toList();
   }
 
   Future<List<SpaceModel>> filterSpaces({
@@ -122,9 +138,7 @@ class SpaceRepository {
     List<String>? neighborhoods,
     int limit = 20,
   }) async {
-    var query = _supabase
-        .from('hubs')
-        .select('''
+    var query = _supabase.from('hubs').select('''
           *,
           hub_contacts(*),
           hub_amenities(amenity_id),
@@ -140,18 +154,29 @@ class SpaceRepository {
     }
 
     final response = await query.limit(limit);
-    var spaces = (response as List).map((json) => _hubJsonToSpaceModel(json)).toList();
+    var spaces = (response as List)
+        .map((json) => _hubJsonToSpaceModel(json))
+        .toList();
 
-    if (hasWifi == true) spaces = spaces.where((s) => s.hasWifi).toList();
-    if (hasParking == true) spaces = spaces.where((s) => s.hasParking).toList();
-    if (hasQuietZone == true) spaces = spaces.where((s) => s.hasQuietZone).toList();
-    if (hasPowerBackup == true) spaces = spaces.where((s) => s.hasPowerBackup).toList();
+    if (hasWifi == true) {
+      spaces = spaces.where((s) => s.hasWifi).toList();
+    }
+    if (hasParking == true) {
+      spaces = spaces.where((s) => s.hasParking).toList();
+    }
+    if (hasQuietZone == true) {
+      spaces = spaces.where((s) => s.hasQuietZone).toList();
+    }
+    if (hasPowerBackup == true) {
+      spaces = spaces.where((s) => s.hasPowerBackup).toList();
+    }
 
     return spaces.take(limit).toList();
   }
 
   SpaceModel _hubJsonToSpaceModel(Map<String, dynamic> json) {
-    final amenityIds = (json['hub_amenities'] as List?)
+    final amenityIds =
+        (json['hub_amenities'] as List?)
             ?.map((a) => a['amenity_id'] as String)
             .toList() ??
         [];
@@ -210,7 +235,9 @@ class SpaceRepository {
 
   List<String> _extractPhotoUrls(Map<String, dynamic> json) {
     if (json['hub_photos'] != null && (json['hub_photos'] as List).isNotEmpty) {
-      return (json['hub_photos'] as List).map((p) => p['url'] as String).toList();
+      return (json['hub_photos'] as List)
+          .map((p) => p['url'] as String)
+          .toList();
     }
     if (json['photo_urls'] != null) {
       return (json['photo_urls'] as List).cast<String>();
