@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WorkHubz | Find and Book Workspaces in Nairobi</title>
+    <meta
+      name="description"
+      content="WorkHubz helps you discover and book affordable workspaces in Nairobi. Android early access is now open."
+    />
+    <meta property="og:title" content="WorkHubz" />
+    <meta
+      property="og:description"
+      content="Find and book affordable workspaces in Nairobi. Android early access is now open."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://workhubz.vercel.app" />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <a href="#" class="brand">
+          <span class="brand-mark">W</span>
+          <span>WorkHubz</span>
+        </a>
+        <div class="badge">Android Early Access</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container">
+        <div class="hero-copy">
+          <p class="eyebrow">Nairobi-first workspace discovery</p>
+          <h1>Find and book your next productive workspace</h1>
+          <p class="subtitle">
+            WorkHubz helps freelancers, students, and remote teams discover
+            affordable coworking hubs with the amenities they need.
+          </p>
+
+          <div class="cta-row">
+            <a id="download-apk" class="btn btn-primary" href="https://github.com/RealDevRay/workhubz/releases/latest" target="_blank" rel="noopener noreferrer">
+              Download Android APK
+            </a>
+            <a class="btn btn-secondary" href="#ios-waitlist">Join iOS Waitlist</a>
+          </div>
+
+          <p class="muted" id="release-meta">
+            Checking latest Android build...
+          </p>
+        </div>
+
+        <div class="hero-card" aria-hidden="true">
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="screen">
+              <div class="chip">80+ hubs</div>
+              <h3>Discover near you</h3>
+              <p>Filter by neighborhood, price, and amenities.</p>
+              <ul>
+                <li>✅ Wi-Fi and power backup</li>
+                <li>✅ Quiet productivity zones</li>
+                <li>✅ Flexible day rates</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container" id="features">
+        <h2>Why WorkHubz</h2>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Smart discovery</h3>
+            <p>
+              Explore workspaces by map, neighborhood, and pricing so you can
+              find the right fit faster.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Built for Nairobi</h3>
+            <p>
+              Local-first experience tailored to Nairobi neighborhoods and real
+              commuter patterns.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Seamless booking</h3>
+            <p>
+              Move from discovery to payment and check-in with a smooth,
+              mobile-first flow.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-alt">
+        <div class="container two-col">
+          <div>
+            <h2>Perfect for early testers</h2>
+            <p>
+              We are actively improving performance, UX, and payment reliability.
+              Early adopters help shape the roadmap.
+            </p>
+            <ul class="checklist">
+              <li>Android testing access today</li>
+              <li>Fast iteration and weekly improvements</li>
+              <li>iOS support planned as we scale</li>
+            </ul>
+          </div>
+          <div class="card card-highlight" id="ios-waitlist">
+            <h3>iOS coming soon</h3>
+            <p>
+              Want early iOS access once available? Join the waitlist and we’ll
+              notify you.
+            </p>
+            <a
+              class="btn btn-primary btn-full"
+              href="mailto:hello@workhubz.app?subject=WorkHubz%20iOS%20Waitlist"
+            >
+              Join Waitlist
+            </a>
+            <p class="muted small">Tip: Replace this email link with your form URL later.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <p>© <span id="year"></span> WorkHubz. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="https://github.com/RealDevRay/workhubz" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://github.com/RealDevRay/workhubz/releases/latest" target="_blank" rel="noopener noreferrer">Releases</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
