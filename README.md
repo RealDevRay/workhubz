@@ -215,9 +215,9 @@ Open a PR and merge after required checks pass.
 
 ---
 
-## Automated merge workflow (no manual GitHub UI)
+## Automated merge + release workflow (no manual GitHub UI)
 
-You can automate PR creation + auto-merge from your current branch:
+### A) Auto PR + auto-merge
 
 ```powershell
 .\scripts\auto-merge.ps1
@@ -233,6 +233,32 @@ Optional args:
 
 ```powershell
 .\scripts\auto-merge.ps1 -Repo "RealDevRay/workhubz" -Base "main" -Head "feature/your-branch" -Title "Your PR title"
+```
+
+### B) Auto PR + auto-merge + auto-release tag trigger
+
+```powershell
+.\scripts\auto-merge-and-release.ps1
+```
+
+What it does:
+
+1. Runs auto-merge flow (`auto-merge.ps1`)
+2. Waits for PR merge completion
+3. Computes next semantic tag by scanning remote tags (patch bump), e.g. `v1.0.2 -> v1.0.3`
+4. Triggers `Release` workflow for the new tag
+
+Useful flags:
+
+```powershell
+# Watch release run until done
+.\scripts\auto-merge-and-release.ps1 -WatchRelease
+
+# Mark release as stable (not prerelease)
+.\scripts\auto-merge-and-release.ps1 -Prerelease:$false
+
+# Custom repo/base/head
+.\scripts\auto-merge-and-release.ps1 -Repo "RealDevRay/workhubz" -Base "main" -Head "feature/your-branch"
 ```
 
 ## Website / Marketing page
