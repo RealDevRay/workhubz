@@ -235,7 +235,7 @@ Optional args:
 .\scripts\auto-merge.ps1 -Repo "RealDevRay/workhubz" -Base "main" -Head "feature/your-branch" -Title "Your PR title"
 ```
 
-### B) Auto PR + auto-merge + auto-release tag trigger
+### B) Auto PR + auto-merge + auto-release tag trigger (PowerShell)
 
 ```powershell
 .\scripts\auto-merge-and-release.ps1
@@ -260,6 +260,24 @@ Useful flags:
 # Custom repo/base/head
 .\scripts\auto-merge-and-release.ps1 -Repo "RealDevRay/workhubz" -Base "main" -Head "feature/your-branch"
 ```
+
+### C) One-click GitHub Action orchestration (`workflow_dispatch`)
+
+Use workflow: `.github/workflows/orchestrate-merge-release.yml`
+
+From GitHub UI:
+
+1. Open **Actions** → **Orchestrate Merge and Release**
+2. Click **Run workflow**
+3. Provide:
+   - `head_branch` (required)
+   - `base_branch` (default `main`)
+   - `prerelease` (`true`/`false`)
+   - `tag_prefix` (default `v`)
+   - `timeout_minutes`
+   - `watch_release`
+
+This performs PR creation/reuse, auto-merge enablement, merge wait, tag bump, and release trigger in one run.
 
 ## Website / Marketing page
 
