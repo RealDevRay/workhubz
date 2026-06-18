@@ -49,11 +49,11 @@
 #### API & Services
 - **M-Pesa** — Daraja STK Push fully integrated with proper OAuth token flow (`consumer_key:consumer_secret` → Basic Auth → Bearer token). Sandbox configuration included.
 - `BookingPaymentScreen` built to collect phone, call STK push, poll for result, and create booking in Supabase.
-- Default Supabase URL and anon key embedded in `main.dart` (app won't crash without `--dart-define`)
+- Supabase URL and anon key now loaded via `--dart-define`/`.env` only (no hardcoded runtime keys)
 
 #### Build & Configuration
 - **App icon** generated from branding assets (flutter_launcher_icons)
-- **Google Maps API key** added to AndroidManifest.xml
+- **Google Maps API key** injected from `android/local.properties` (not committed)
 - Script `scripts/build.ps1` with all `--dart-define` flags
 - Build command: `flutter build apk --debug --android-skip-build-dependency-validation`
 
@@ -116,7 +116,7 @@
 | Item | Value |
 |------|-------|
 | Supabase URL | `https://srrqhcltnhxdkkeqdsxh.supabase.co` |
-| Anon Key | Embedded in `main.dart` + `scripts/build.ps1` |
-| Maps API Key | Embedded in `AndroidManifest.xml` |
+| Anon Key | Injected via `.env` / `--dart-define` |
+| Maps API Key | Injected via `android/local.properties` placeholder |
 | OAuth Redirect | `io.supabase.flutter://callback` |
 | Maps SHA-1 | `49:87:FA:6C:B1:45:2A:16:FD:9F:25:C8:23:69:67:6F:3F:64:B1:72` |

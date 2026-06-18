@@ -1,0 +1,4 @@
+# Copy to android/local.properties (already gitignored as /local.properties)
+# and set your Google Maps API key there.
+
+MAPS_API_KEY=your_google_maps_api_key

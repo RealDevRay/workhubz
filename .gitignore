@@ -48,4 +48,17 @@ app.*.map.json
 
 # Environment variables (DO NOT COMMIT SECRETS)
 .env
+.env.*
+**/.env
+**/.env.*
+!**/.env.example
 
+# Build outputs and local reports
+*.apk
+*.aab
+build.txt
+flutter_analyze_current.txt
+flutter_analyze_full.txt
+test.txt
+test_analyze.txt
+android/build/

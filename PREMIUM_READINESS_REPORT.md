@@ -95,7 +95,7 @@ This report is based on a thorough static + structural analysis (all Dart source
 ## 🟠 High — Security, Data Integrity, Trust (Premium Killers)
 
 10. **Safaricom Daraja credentials & shortcode hardcoded in 4+ places**
-    - `mpesa_service.dart:118` (passkey `bfb279f9aa9bdbcf158e97dd71a467cd2`), multiple `'247246'`.
+    - `mpesa_service.dart:118` (passkey previously hardcoded — now use env/runtime injection), multiple `'247246'`.
     - `app_constants.dart`, api calls.
     - **Fix:** 
       - `String.fromEnvironment('MPESA_PASSKEY')` + `--dart-define` (or `envied` package + `.env` gitignored).

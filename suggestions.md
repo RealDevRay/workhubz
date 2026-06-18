@@ -97,7 +97,7 @@ if (booking.paymentStatus == PaymentStatus.paid) ...
 **File:** `lib/services/mpesa_service.dart`
 
 ```dart
-final passkey = 'bfb279f9aa9bdbcf158e97dd71a467cd2'; // ← sandbox key in source
+final passkey = '<REDACTED>'; // previously hardcoded sandbox key in source
 ```
 
 Committing API secrets to version control is a security risk. The shortcode `'247246'` is also hardcoded in three separate places.
