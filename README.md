@@ -215,6 +215,26 @@ Open a PR and merge after required checks pass.
 
 ---
 
+## Automated merge workflow (no manual GitHub UI)
+
+You can automate PR creation + auto-merge from your current branch:
+
+```powershell
+.\scripts\auto-merge.ps1
+```
+
+What it does:
+
+- Creates a PR from current branch to `main` (or reuses existing one)
+- Enables **auto-merge (squash)**
+- Deletes feature branch after merge
+
+Optional args:
+
+```powershell
+.\scripts\auto-merge.ps1 -Repo "RealDevRay/workhubz" -Base "main" -Head "feature/your-branch" -Title "Your PR title"
+```
+
 ## Website / Marketing page
 
 A public landing page is included in this repo at `website/`.
